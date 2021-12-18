@@ -4,6 +4,8 @@
   "description": "basic express server",
   "main": "server.ts",
   "scripts": {
+    "start": "nodemon --exec ts-node server.ts",
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "kwon, minho",
@@ -12,6 +14,8 @@
     "express": "^4.17.2"
   },
   "devDependencies": {
+    "nodemon": "^2.0.15",
+    "ts-node": "^10.4.0",
     "typescript": "^4.5.4"
   }
 }
