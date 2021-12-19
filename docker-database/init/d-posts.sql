@@ -1,9 +1,10 @@
 \connect "docker-database";
 
-CREATE TABLE public.users (
+CREATE TABLE public.posts (
   id serial primary key,
-  email varchar NOT NULL,
-	"password" varchar NOT NULL,
+  author varchar NOT NULL,
+  title varchar NOT NULL,
+  content varchar NOT NULL,
   created_at timestamp NOT NULL DEFAULT now(),
 	updated_at timestamp NULL
 );

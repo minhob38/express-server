@@ -12,7 +12,10 @@ const options = {
     },
     host: 'localhost:8000',
   },
-  apis: ['src/routes/auth-router.ts'],
+  apis: [
+    'src/routes/auth-router.ts',
+    'src/routes/board-router.ts'
+  ],
 };
 
 const openapiSpecification = swaggerJsdoc(options);

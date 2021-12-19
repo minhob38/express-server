@@ -29,7 +29,6 @@ const router: express.Router = express.Router();
  *               password:
  *                 description: password
  *                 type: string
- *                 required: true
  *                 default: qwerasdf
  *             required:
  *               - email
@@ -78,7 +77,6 @@ router.post('/signup', postSignUp);
  *               password:
  *                 description: password
  *                 type: string
- *                 required: true
  *                 default: qwerasdf
  *             required:
  *               - email
@@ -127,12 +125,10 @@ router.post('/signin', postSignIn);
  *               current_password:
  *                 description: current password
  *                 type: string
- *                 required: true
  *                 default: qwerasdf
  *               new_password:
  *                 description: new password
  *                 type: string
- *                 required: true
  *                 default: qwerasdf
  *             required:
  *               - email
@@ -176,7 +172,6 @@ router.patch('/password', patchPassword);
  *               password:
  *                 description: password
  *                 type: string
- *                 required: true
  *                 default: qwerasdf
  *             required:
  *               - email

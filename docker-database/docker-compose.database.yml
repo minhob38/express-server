@@ -1,6 +1,6 @@
 version: "3.0"
 services:
-  testcode-database:
+  docker-database:
     build:
       context: .
       dockerfile: Dockerfile.database
@@ -10,4 +10,4 @@ services:
     environment:
       POSTGRES_PASSWORD: ${DOCKER_DB_PASSWORD}
     volumes:
-      - ./init-database:/docker-entrypoint-initdb.d/
+      - ./init:/docker-entrypoint-initdb.d/
