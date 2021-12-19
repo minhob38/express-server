@@ -37,10 +37,10 @@
     "consistent-return": "off",
     "prefer-destructuring": "off",
     "no-underscore-dangle": "off",
-    "import/newline-after-import": "off",
+    "import/newline-after-import": "warn",
     "no-warning-comments": ["warn", { "terms": ["^"], "location": "anywhere" }],
     "arrow-body-style": "off",
-    "object-shorthand": "off",
+    "object-shorthand": "warn",
     "dot-notation": "off",
     "no-return-await": "off",
     "no-await-in-loop": "off",
@@ -50,7 +50,8 @@
     "import/no-dynamic-require": "off",
     "global-require": "off",
     "import/extensions": ["warn", { "js": "never", "ts": "never" }],
-    "no-use-before-define": "error"
+    "no-use-before-define": "error",
+    "import/prefer-default-export": "warn",
   },
   "settings": {
     "import/resolver": {

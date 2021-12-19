@@ -1,5 +1,6 @@
-import knex from 'knex';
+import { Knex, knex } from 'knex';
 import dotenv from 'dotenv';
+import { INVALID_ENVIROMENT_VARIABLE } from '../constants/error';
 
 dotenv.config();
 
@@ -17,16 +18,16 @@ if (!DOCKER_DB_NAME
   || !DOCKER_DB_PORT
   || !DOCKER_DB_PASSWORD
 ) {
-  throw new Error('environment variable error');
+  throw new Error(INVALID_ENVIROMENT_VARIABLE);
 }
 
-const config = {
+const config: Knex.Config = {
   client: 'pg',
   connection: {
     database: DOCKER_DB_NAME,
     user: DOCKER_DB_USER,
     host: DOCKER_DB_HOST,
-    port: DOCKER_DB_PORT,
+    port: parseInt(DOCKER_DB_PORT, 10),
     password: DOCKER_DB_PASSWORD,
   },
 };
