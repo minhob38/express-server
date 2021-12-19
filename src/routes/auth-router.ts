@@ -1,10 +1,8 @@
 import express from 'express';
 
-const Router = express.Router;
+const router: express.Router = express.Router();
 
-const router = Router();
-
-router.get('/signup', (req, res, next) => {
+router.post('/signup', (req: express.Request, res: express.Response, next: express.NextFunction) => {
   return res.status(200).json({
     a: 'hello',
   });
