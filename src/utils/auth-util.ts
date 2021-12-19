@@ -18,6 +18,12 @@ export const createHash = (password: string): string => {
   return hash;
 };
 
+export const getIsMatchPassword = async (password: string, hash: string): Promise<boolean> => {
+  const isPassword = await bcrypt.compareSync(password, hash);
+
+  return isPassword;
+};
+
 export const createToken = (email: string): string => {
   const token: string = jwt.sign({ email }, TOKEN_SECRET_KEY, { expiresIn: '14d' });
 
