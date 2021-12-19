@@ -1,6 +1,11 @@
 import express from 'express';
 import { createHash, createToken, getIsMatchPassword } from '../utils/auth-util';
-import { findUserByEmail, createUser, updatePassword } from '../queries/auth-query';
+import {
+  findUserByEmail,
+  removeUserByEmail,
+  createUser,
+  updatePassword
+} from '../queries/auth-query';
 import { IResData, IUser } from '../types';
 
 export const postSignUp = async (
@@ -139,6 +144,53 @@ export const patchPassword = async (
     const data: IResData = {
       status: 'success',
       message: 'password changed',
+    };
+
+    return res.status(200).json(data);
+  } catch (err) {
+    const data: IResData = {
+      status: 'error',
+      message: (err as Error).message,
+    };
+    return res.status(500).json(data);
+  }
+};
+
+export const deleteSignOut = async (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  try {
+    const { email, password } = req.body as { email: string, password: string };
+    const user: IUser = await findUserByEmail(email);
+
+    if (!user) {
+      const data: IResData = {
+        status: 'error',
+        message: 'user does not exists',
+      };
+
+      return res.status(200).json(data);
+    }
+
+    const hash: string = user.password;
+    const isMatchPassword: boolean = await getIsMatchPassword(password, hash);
+
+    if (!isMatchPassword) {
+      const data: IResData = {
+        status: 'error',
+        message: 'password is invalid',
+      };
+
+      return res.status(200).json(data);
+    }
+
+    await removeUserByEmail(email);
+
+    const data: IResData = {
+      status: 'success',
+      message: 'user signed out',
     };
 
     return res.status(200).json(data);

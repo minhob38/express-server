@@ -1,5 +1,10 @@
 import express from 'express';
-import { postSignUp, postSignIn, patchPassword } from '../controllers/auth-controller';
+import {
+  postSignUp,
+  postSignIn,
+  patchPassword,
+  deleteSignOut
+} from '../controllers/auth-controller';
 
 const router: express.Router = express.Router();
 
@@ -149,5 +154,48 @@ router.post('/signin', postSignIn);
  *                   description: password changed
  */
 router.patch('/password', patchPassword);
+
+/**
+ * @openapi
+ * /api/auth/signout:
+ *   delete:
+ *     tags:
+ *       - auth
+ *     summary: signout
+ *     description: change password with new password
+ *     requestBody:
+ *       content:
+ *         application/x-www-form-urlencoded:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 description: email
+ *                 type: string
+ *                 default: abcde@gmail.com
+ *               password:
+ *                 description: password
+ *                 type: string
+ *                 required: true
+ *                 default: qwerasdf
+ *             required:
+ *               - email
+ *               - password
+ *     responses:
+ *       200:
+ *         description: signed out
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   description: success
+ *                 message:
+ *                   type: string
+ *                   description: user signed out
+ */
+router.delete('/signout', deleteSignOut);
 
 export default router;
