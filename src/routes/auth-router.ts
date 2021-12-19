@@ -1,6 +1,5 @@
-export {};
+import express from 'express';
 
-const express = require('express');
 const Router = express.Router;
 
 const router = Router();
@@ -11,4 +10,4 @@ router.get('/signup', (req, res, next) => {
   });
 });
 
-module.exports = router;
+export default router;

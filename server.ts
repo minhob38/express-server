@@ -1,7 +1,5 @@
-export {};
-
-const http = require('http');
-const app = require('./src/app');
+import http from 'http';
+import app from './src/app';
 
 const server = http.createServer(app);
 const port = 3000;
