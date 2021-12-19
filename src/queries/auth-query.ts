@@ -16,3 +16,12 @@ export const createUser = async (email: string, hash: string): Promise<IUser> =>
 
   return insertedUsers[0];
 };
+
+export const updatePassword = async (email: string, hash: string): Promise<IUser> => {
+  const updatedUsers: IUser[] = await knex('users')
+    .update({ email, password: hash })
+    .where('email', '=', email)
+    .returning(['email', 'password', 'created_at as createAt', 'updated_at as updatedAt']);
+
+  return updatedUsers[0];
+};

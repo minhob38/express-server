@@ -1,16 +1,16 @@
 import express from 'express';
 import { createHash, createToken, getIsMatchPassword } from '../utils/auth-util';
-import { findUserByEmail, createUser } from '../queries/auth-query';
-import { IResData } from '../types';
+import { findUserByEmail, createUser, updatePassword } from '../queries/auth-query';
+import { IResData, IUser } from '../types';
 
-export const signUp = async (
+export const postSignUp = async (
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
 ) => {
   try {
     const { email, password } = req.body as { email: string, password: string };
-    const user = await findUserByEmail(email);
+    const user: IUser = await findUserByEmail(email);
 
     if (user) {
       const data: IResData = {
@@ -22,7 +22,7 @@ export const signUp = async (
     }
 
     const hash: string = createHash(password);
-    const insertedUser = await createUser(email, hash);
+    const insertedUser: IUser = await createUser(email, hash);
     const token: string = createToken(insertedUser.email);
 
     const data: IResData = {
@@ -41,14 +41,14 @@ export const signUp = async (
   }
 };
 
-export const signIn = async (
+export const postSignIn = async (
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
 ) => {
   try {
     const { email, password } = req.body as { email: string, password: string };
-    const user = await findUserByEmail(email);
+    const user: IUser = await findUserByEmail(email);
 
     if (!user) {
       const data: IResData = {
@@ -59,8 +59,8 @@ export const signIn = async (
       return res.status(200).json(data);
     }
 
-    const hash = user.password;
-    const isMatchPassword = await getIsMatchPassword(password, hash);
+    const hash: string = user.password;
+    const isMatchPassword: boolean = await getIsMatchPassword(password, hash);
 
     if (!isMatchPassword) {
       const data: IResData = {
@@ -77,6 +77,68 @@ export const signIn = async (
       status: 'success',
       message: 'user signed in',
       data: { access_token: token },
+    };
+
+    return res.status(200).json(data);
+  } catch (err) {
+    const data: IResData = {
+      status: 'error',
+      message: (err as Error).message,
+    };
+    return res.status(500).json(data);
+  }
+};
+
+export const patchPassword = async (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  try {
+    const {
+      email,
+      current_password: currentPassword,
+      new_password: newPassword,
+    } = req.body as { email: string, current_password: string, new_password: string };
+
+    if (currentPassword === newPassword) {
+      const data: IResData = {
+        status: 'error',
+        message: 'password is same',
+      };
+
+      return res.status(200).json(data);
+    }
+
+    const user: IUser = await findUserByEmail(email);
+
+    if (!user) {
+      const data: IResData = {
+        status: 'error',
+        message: 'user does not exists',
+      };
+
+      return res.status(200).json(data);
+    }
+
+    const crrentHash: string = user.password;
+    const isMatchPassword: boolean = await getIsMatchPassword(currentPassword, crrentHash);
+
+    if (!isMatchPassword) {
+      const data: IResData = {
+        status: 'error',
+        message: 'password is invalid',
+      };
+
+      return res.status(200).json(data);
+    }
+
+    const newHash: string = createHash(newPassword);
+    await updatePassword(user.email, newHash);
+
+    const data: IResData = {
+      status: 'success',
+      message: 'password changed',
     };
 
     return res.status(200).json(data);
