@@ -11,7 +11,8 @@
   "author": "kwon, minho",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.7.0",
