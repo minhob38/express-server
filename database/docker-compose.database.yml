@@ -1,0 +1,13 @@
+version: "3.0"
+services:
+  testcode-database:
+    build:
+      context: .
+      dockerfile: Dockerfile.database
+    ports:
+      - "${DOCKER_DB_PORT}:5432"
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: ${DOCKER_DB_PASSWORD}
+    volumes:
+      - ./init-database:/docker-entrypoint-initdb.d/

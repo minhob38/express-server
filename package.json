@@ -6,6 +6,8 @@
   "scripts": {
     "start": "nodemon --exec ts-node server.ts",
     "build": "tsc",
+    "test:db-up": "docker-compose -f database/docker-compose.database.yml --env-file .env up -d",
+    "test:db-down": "docker-compose -f database/docker-compose.database.yml --env-file .env down",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "kwon, minho",
