@@ -3,7 +3,7 @@ import {
   postSignUp,
   postSignIn,
   patchPassword,
-  deleteSignOut
+  deleteSignOut,
 } from '../controllers/auth-controller';
 
 const router: express.Router = express.Router();
@@ -53,6 +53,19 @@ const router: express.Router = express.Router();
  *                     access_token:
  *                       type: string
  *                       description: access token
+ *       500:
+ *         description: internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   description: error
+ *                 message:
+ *                   type: string
+ *                   description: internal server error
  */
 router.post('/signup', postSignUp);
 
@@ -101,6 +114,19 @@ router.post('/signup', postSignUp);
  *                     access_token:
  *                       type: string
  *                       description: access token
+ *       500:
+ *         description: internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   description: error
+ *                 message:
+ *                   type: string
+ *                   description: internal server error
  */
 router.post('/signin', postSignIn);
 
@@ -148,6 +174,19 @@ router.post('/signin', postSignIn);
  *                 message:
  *                   type: string
  *                   description: password changed
+ *       500:
+ *         description: internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   description: error
+ *                 message:
+ *                   type: string
+ *                   description: internal server error
  */
 router.patch('/password', patchPassword);
 
@@ -190,6 +229,19 @@ router.patch('/password', patchPassword);
  *                 message:
  *                   type: string
  *                   description: user signed out
+ *       500:
+ *         description: internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   description: error
+ *                 message:
+ *                   type: string
+ *                   description: internal server error
  */
 router.delete('/signout', deleteSignOut);
 
