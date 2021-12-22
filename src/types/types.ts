@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 
 export interface IResData {
-  status: string;
+  status: 'error' | 'success';
   message: string;
   data?: any;
 }

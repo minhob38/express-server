@@ -1,10 +1,15 @@
 import express from 'express';
-import { createHash, createToken, getIsMatchPassword } from '../utils/auth-util';
+import createError from 'http-errors';
+import {
+  createHash,
+  createToken,
+  getIsMatchPassword,
+} from '../utils/auth-util';
 import {
   findUserByEmail,
   removeUserByEmail,
   createUser,
-  updatePassword
+  updatePassword,
 } from '../queries/auth-query';
 import { IResData, IUser } from '../types/types';
 
@@ -14,7 +19,7 @@ export const postSignUp = async (
   next: express.NextFunction
 ) => {
   try {
-    const { email, password } = req.body as { email: string, password: string };
+    const { email, password } = req.body as { email: string; password: string };
     const user: IUser = await findUserByEmail(email);
 
     if (user) {
@@ -38,11 +43,7 @@ export const postSignUp = async (
 
     return res.status(200).json(data);
   } catch (err) {
-    const data: IResData = {
-      status: 'error',
-      message: (err as Error).message,
-    };
-    return res.status(500).json(data);
+    return next(createError(500, (err as Error).message));
   }
 };
 
@@ -52,7 +53,7 @@ export const postSignIn = async (
   next: express.NextFunction
 ) => {
   try {
-    const { email, password } = req.body as { email: string, password: string };
+    const { email, password } = req.body as { email: string; password: string };
     const user: IUser = await findUserByEmail(email);
 
     if (!user) {
@@ -86,11 +87,7 @@ export const postSignIn = async (
 
     return res.status(200).json(data);
   } catch (err) {
-    const data: IResData = {
-      status: 'error',
-      message: (err as Error).message,
-    };
-    return res.status(500).json(data);
+    return next(createError(500, (err as Error).message));
   }
 };
 
@@ -104,7 +101,11 @@ export const patchPassword = async (
       email,
       current_password: currentPassword,
       new_password: newPassword,
-    } = req.body as { email: string, current_password: string, new_password: string };
+    } = req.body as {
+      email: string;
+      current_password: string;
+      new_password: string;
+    };
 
     if (currentPassword === newPassword) {
       const data: IResData = {
@@ -127,7 +128,10 @@ export const patchPassword = async (
     }
 
     const crrentHash: string = user.password;
-    const isMatchPassword: boolean = await getIsMatchPassword(currentPassword, crrentHash);
+    const isMatchPassword: boolean = await getIsMatchPassword(
+      currentPassword,
+      crrentHash
+    );
 
     if (!isMatchPassword) {
       const data: IResData = {
@@ -148,11 +152,7 @@ export const patchPassword = async (
 
     return res.status(200).json(data);
   } catch (err) {
-    const data: IResData = {
-      status: 'error',
-      message: (err as Error).message,
-    };
-    return res.status(500).json(data);
+    return next(createError(500, (err as Error).message));
   }
 };
 
@@ -162,7 +162,7 @@ export const deleteSignOut = async (
   next: express.NextFunction
 ) => {
   try {
-    const { email, password } = req.body as { email: string, password: string };
+    const { email, password } = req.body as { email: string; password: string };
     const user: IUser = await findUserByEmail(email);
 
     if (!user) {
@@ -195,10 +195,6 @@ export const deleteSignOut = async (
 
     return res.status(200).json(data);
   } catch (err) {
-    const data: IResData = {
-      status: 'error',
-      message: (err as Error).message,
-    };
-    return res.status(500).json(data);
+    return next(createError(500, (err as Error).message));
   }
 };

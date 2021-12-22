@@ -1,4 +1,5 @@
 import express from 'express';
+import createError from 'http-errors';
 import {
   createPost,
   findPosts,
@@ -28,11 +29,7 @@ export const postPost = async (
 
     return res.status(200).json(data);
   } catch (err) {
-    const data: IResData = {
-      status: 'error',
-      message: (err as Error).message,
-    };
-    return res.status(500).json(data);
+    return next(createError(500, (err as Error).message));
   }
 };
 
@@ -53,11 +50,7 @@ export const getPosts = async (
 
     return res.status(200).json(data);
   } catch (err) {
-    const data: IResData = {
-      status: 'error',
-      message: (err as Error).message,
-    };
-    return res.status(500).json(data);
+    return next(createError(500, (err as Error).message));
   }
 };
 
@@ -80,11 +73,7 @@ export const getPost = async (
 
     return res.status(200).json(data);
   } catch (err) {
-    const data: IResData = {
-      status: 'error',
-      message: (err as Error).message,
-    };
-    return res.status(500).json(data);
+    return next(createError(500, (err as Error).message));
   }
 };
 
@@ -105,11 +94,7 @@ export const patchPost = async (
 
     return res.status(200).json(data);
   } catch (err) {
-    const data: IResData = {
-      status: 'error',
-      message: (err as Error).message,
-    };
-    return res.status(500).json(data);
+    return next(createError(500, (err as Error).message));
   }
 };
 
@@ -129,10 +114,6 @@ export const deletePost = async (
 
     return res.status(200).json(data);
   } catch (err) {
-    const data: IResData = {
-      status: 'error',
-      message: (err as Error).message,
-    };
-    return res.status(500).json(data);
+    return next(createError(500, (err as Error).message));
   }
 };
