@@ -6,7 +6,7 @@ import {
   updatePost,
   removePostById,
 } from '../queries/board-query';
-import { IPost, IResData } from '../types';
+import { IPost, IResData } from '../types/types';
 
 export const postPost = async (
   req: express.Request,
@@ -41,6 +41,7 @@ export const getPosts = async (
   res: express.Response,
   next: express.NextFunction
 ) => {
+  console.log(req.userInfo);
   try {
     const posts: IPost[] = await findPosts();
 

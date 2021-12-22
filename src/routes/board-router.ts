@@ -77,6 +77,8 @@ router.post('/posts', postPost);
  *       - board
  *     summary: find posts
  *     description: find posts
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: found posts
@@ -138,6 +140,8 @@ router.get('/posts', getPosts);
  *       - board
  *     summary: find post
  *     description: find post with post id
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: postId
@@ -205,6 +209,8 @@ router.get('/posts/:postId', getPost);
  *       - board
  *     summary: find post
  *     description: edit post with post id, content
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: postId
@@ -263,6 +269,8 @@ router.patch('/posts/:postId', patchPost);
  *       - board
  *     summary: find post
  *     description: delete post with post id
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: postId

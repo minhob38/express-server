@@ -1,5 +1,5 @@
 import express from 'express';
-import { IResData } from '../types';
+import { IResData } from '../types/types';
 
 const router: express.Router = express.Router();
 

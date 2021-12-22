@@ -6,7 +6,7 @@ import {
   createUser,
   updatePassword
 } from '../queries/auth-query';
-import { IResData, IUser } from '../types';
+import { IResData, IUser } from '../types/types';
 
 export const postSignUp = async (
   req: express.Request,
