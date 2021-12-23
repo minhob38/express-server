@@ -38,7 +38,6 @@ export const getPosts = async (
   res: express.Response,
   next: express.NextFunction
 ) => {
-  console.log(req.userInfo);
   try {
     const posts: IPost[] = await findPosts();
 

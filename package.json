@@ -6,6 +6,10 @@
   "scripts": {
     "start": "nodemon --exec ts-node server.ts",
     "build": "tsc",
+    "server": "node dist/server.js",
+    "docker-build": "docker build -t my-express-server:latest .",
+    "docker-compose-up": "docker-compose up",
+    "docker-compose-down": "docker-compose down",
     "docker:db-up": "docker-compose -f docker-database/docker-compose.database.yml --env-file .env up -d",
     "docker:db-down": "docker-compose -f docker-database/docker-compose.database.yml --env-file .env down",
     "test": "echo \"Error: no test specified\" && exit 1"

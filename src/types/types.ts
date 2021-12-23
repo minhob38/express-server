@@ -23,10 +23,6 @@ export interface IPost {
   updatedAt: string | null;
 }
 
-// export interface IRequestUserInfo extends express.Request {
-//   userInfo: { email: string };
-// }
-
 export interface IUserInfo {
   email: string;
 }
