@@ -8,6 +8,7 @@ import {
   removePostById,
 } from '../queries/board-query';
 import { IPost, IResData } from '../types/types';
+import logger from '../config/winston-logger';
 
 export const postPost = async (
   req: express.Request,
@@ -59,6 +60,7 @@ export const getPost = async (
   next: express.NextFunction
 ) => {
   try {
+    logger.info(`${req.method} ${req.originalUrl}`);
     const { postId } = req.params as { postId: string };
     const post: IPost | null = await findPostById(parseInt(postId, 10));
 
@@ -69,9 +71,9 @@ export const getPost = async (
     };
 
     // TODO: data가 null일때 응답처리하기
-
     return res.status(200).json(data);
   } catch (err) {
+    logger.error(`${req.method} ${req.originalUrl} ${(err as Error).message}`);
     return next(createError(500, (err as Error).message));
   }
 };
@@ -82,6 +84,7 @@ export const patchPost = async (
   next: express.NextFunction
 ) => {
   try {
+    logger.info(`${req.method} ${req.originalUrl}`);
     const { postId } = req.params as { postId: string };
     const { content } = req.body as { content: string };
     await updatePost(parseInt(postId, 10), content);
@@ -93,6 +96,7 @@ export const patchPost = async (
 
     return res.status(200).json(data);
   } catch (err) {
+    logger.error(`${req.method} ${req.originalUrl} ${(err as Error).message}`);
     return next(createError(500, (err as Error).message));
   }
 };
@@ -103,6 +107,7 @@ export const deletePost = async (
   next: express.NextFunction
 ) => {
   try {
+    logger.info(`${req.method} ${req.originalUrl}`);
     const { postId } = req.params as { postId: string };
     await removePostById(parseInt(postId, 10));
 
@@ -113,6 +118,10 @@ export const deletePost = async (
 
     return res.status(200).json(data);
   } catch (err) {
+    logger.log({
+      level: 'error',
+      message: `${req.method} ${req.originalUrl} ${(err as Error).message}`,
+    });
     return next(createError(500, (err as Error).message));
   }
 };

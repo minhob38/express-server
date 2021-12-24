@@ -50,7 +50,8 @@
     "global-require": "off",
     "import/extensions": ["warn", { "js": "never", "ts": "never" }],
     "no-use-before-define": "error",
-    "import/prefer-default-export": "warn"
+    "import/prefer-default-export": "warn",
+    "no-shadow": "warn"
   },
   "settings": {
     "import/resolver": {

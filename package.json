@@ -7,9 +7,10 @@
     "start": "nodemon --exec ts-node server.ts",
     "build": "tsc",
     "server": "node dist/server.js",
-    "docker-build": "docker build -t my-express-server:latest .",
-    "docker-compose-up": "docker-compose up",
-    "docker-compose-down": "docker-compose down",
+    "docker:build": "docker build -t express-server:latest .",
+    "docker:push": "docker tag express-server:latest minhob38/express-server:latest && docker push minhob38/express-server:latest",
+    "docker:compose-up": "docker-compose up",
+    "docker:compose-down": "docker-compose down",
     "docker:db-up": "docker-compose -f docker-database/docker-compose.database.yml --env-file .env up -d",
     "docker:db-down": "docker-compose -f docker-database/docker-compose.database.yml --env-file .env down",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -27,7 +28,9 @@
     "morgan": "^1.10.0",
     "pg": "^8.7.1",
     "swagger-jsdoc": "^6.1.0",
-    "swagger-ui-express": "^4.3.0"
+    "swagger-ui-express": "^4.3.0",
+    "winston": "^3.3.3",
+    "winston-daily-rotate-file": "^4.5.5"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
