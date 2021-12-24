@@ -51,7 +51,8 @@
     "import/extensions": ["warn", { "js": "never", "ts": "never" }],
     "no-use-before-define": "error",
     "import/prefer-default-export": "warn",
-    "no-shadow": "warn"
+    "no-shadow": "warn",
+    "new-cap": "warn"
   },
   "settings": {
     "import/resolver": {

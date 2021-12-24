@@ -16,6 +16,7 @@ export const postPost = async (
   next: express.NextFunction
 ) => {
   try {
+    logger.info(`${req.method} ${req.originalUrl}`);
     const { author, title, content } = req.body as {
       author: string;
       title: string;
@@ -30,6 +31,7 @@ export const postPost = async (
 
     return res.status(200).json(data);
   } catch (err) {
+    logger.error(`${req.method} ${req.originalUrl} ${(err as Error).message}`);
     return next(createError(500, (err as Error).message));
   }
 };
@@ -40,6 +42,7 @@ export const getPosts = async (
   next: express.NextFunction
 ) => {
   try {
+    logger.info(`${req.method} ${req.originalUrl}`);
     const posts: IPost[] = await findPosts();
 
     const data: IResData = {
@@ -50,6 +53,7 @@ export const getPosts = async (
 
     return res.status(200).json(data);
   } catch (err) {
+    logger.error(`${req.method} ${req.originalUrl} ${(err as Error).message}`);
     return next(createError(500, (err as Error).message));
   }
 };

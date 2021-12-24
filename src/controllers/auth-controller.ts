@@ -12,6 +12,7 @@ import {
   updatePassword,
 } from '../queries/auth-query';
 import { IResData, IUser } from '../types/types';
+import logger from '../config/winston-logger';
 
 export const postSignUp = async (
   req: express.Request,
@@ -19,6 +20,7 @@ export const postSignUp = async (
   next: express.NextFunction
 ) => {
   try {
+    logger.info(`${req.method} ${req.originalUrl}`);
     const { email, password } = req.body as { email: string; password: string };
     const user: IUser = await findUserByEmail(email);
 
@@ -43,6 +45,7 @@ export const postSignUp = async (
 
     return res.status(200).json(data);
   } catch (err) {
+    logger.error(`${req.method} ${req.originalUrl} ${(err as Error).message}`);
     return next(createError(500, (err as Error).message));
   }
 };
@@ -53,6 +56,7 @@ export const postSignIn = async (
   next: express.NextFunction
 ) => {
   try {
+    logger.info(`${req.method} ${req.originalUrl}`);
     const { email, password } = req.body as { email: string; password: string };
     const user: IUser = await findUserByEmail(email);
 
@@ -87,6 +91,7 @@ export const postSignIn = async (
 
     return res.status(200).json(data);
   } catch (err) {
+    logger.error(`${req.method} ${req.originalUrl} ${(err as Error).message}`);
     return next(createError(500, (err as Error).message));
   }
 };
@@ -97,6 +102,7 @@ export const patchPassword = async (
   next: express.NextFunction
 ) => {
   try {
+    logger.info(`${req.method} ${req.originalUrl}`);
     const {
       email,
       current_password: currentPassword,
@@ -152,6 +158,7 @@ export const patchPassword = async (
 
     return res.status(200).json(data);
   } catch (err) {
+    logger.error(`${req.method} ${req.originalUrl} ${(err as Error).message}`);
     return next(createError(500, (err as Error).message));
   }
 };
@@ -162,6 +169,7 @@ export const deleteSignOut = async (
   next: express.NextFunction
 ) => {
   try {
+    logger.info(`${req.method} ${req.originalUrl}`);
     const { email, password } = req.body as { email: string; password: string };
     const user: IUser = await findUserByEmail(email);
 
@@ -195,6 +203,7 @@ export const deleteSignOut = async (
 
     return res.status(200).json(data);
   } catch (err) {
+    logger.error(`${req.method} ${req.originalUrl} ${(err as Error).message}`);
     return next(createError(500, (err as Error).message));
   }
 };
