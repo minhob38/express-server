@@ -10,6 +10,7 @@ pipeline {
         stage('docker') {
             steps {
                 sh 'cd ~/express-server && docker build -t minhob38/express-server:latest .'
+                sh 'cd ~/express-server && docker run -d -p 8000:8000 minhob38/express-server:latest --name server-a'
             }
         }
     }
