@@ -1,5 +1,8 @@
 import express from 'express';
+import dotenv from 'dotenv';
 import { IResData } from '../types/types';
+
+dotenv.config();
 
 const router: express.Router = express.Router();
 
