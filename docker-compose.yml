@@ -5,5 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    volumes:
+      - ./.env:/usr/app/.env
     ports:
       - '8000:8000'
