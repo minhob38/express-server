@@ -1,11 +1,12 @@
 version: '3.0'
 services:
-  expressserver:
+  express-server:
     # image: express-server:latest
     build:
       context: .
       dockerfile: Dockerfile
+    # container_name: express-server
     volumes:
       - ./.env:/usr/app/.env
     ports:
-      - '8000:8000'
+      - '8000-8001:8000'
