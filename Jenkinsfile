@@ -2,13 +2,13 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_CREDENTIALS=credentials("dockerhub-minho")
+        DOCKERHUB_CREDENTIALS=credentials('dockerhub-minho')
     }
 
     stages {
         stage('docker build') {
             steps {
-                echo "docker build -t minhob38/express-server:latest ."
+                sh 'docker build -t minhob38/express-server:latest .'
             }
         }
 
