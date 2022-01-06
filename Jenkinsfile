@@ -6,9 +6,9 @@ pipeline {
     }
 
     stages {
-        stage('build') {
+        stage('docker build') {
             steps {
-                echo "hello"
+                echo "docker build -t minhob38/express-server:latest ."
             }
         }
 
@@ -17,5 +17,11 @@ pipeline {
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login --username minhob38 --password-stdin'
             }
         }
+
+        stage('dockerhub push') {
+			steps {
+				sh 'docker push minhob38/express-server:latest'
+			}
+		}
     }
 }
