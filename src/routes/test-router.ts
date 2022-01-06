@@ -15,7 +15,7 @@ router.get(
   ) => {
     const data: IResData = {
       status: 'success',
-      message: 'test conducted',
+      message: 'test conducted : 3',
     };
 
     return res.status(200).json(data);
