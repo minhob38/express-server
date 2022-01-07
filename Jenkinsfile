@@ -33,7 +33,7 @@ pipeline {
 
         stage('deploy server') {
 			steps {
-				sh 'sh /deploy_backend.sh'
+				sh 'sh /server-computer/backend/deploy_backend.sh'
 			}
 		}
     }
