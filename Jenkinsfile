@@ -31,10 +31,10 @@ pipeline {
 			}
 		}
 
-        stage('deploy server') {
-			steps {
-				sh 'sh /server-computer/backend/deploy_backend.sh'
-			}
-		}
+        // stage('deploy server') {
+		// 	steps {
+		// 		sh 'sh /server-computer/backend/deploy_backend.sh'
+		// 	}
+		// }
     }
 }
