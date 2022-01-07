@@ -1,3 +1,4 @@
+// jenkins pipeline document - https://www.jenkins.io/doc/book/pipeline/jenkinsfile/
 pipeline {
     agent any
 
@@ -21,6 +22,18 @@ pipeline {
         stage('dockerhub push') {
 			steps {
 				sh 'docker push minhob38/express-server:latest'
+			}
+		}
+
+        stage('dockerhub pull') {
+			steps {
+				sh 'docker pull minhob38/express-server:latest'
+			}
+		}
+
+        stage('deploy server') {
+			steps {
+				sh 'sh /deploy_backend.sh'
 			}
 		}
     }

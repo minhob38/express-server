@@ -22,4 +22,9 @@ api 요청/응답은 swagger를 기반으로 문서화되어 있습니다.
 
 ## CI / CD
 
-github → docker → jenkins
+ithub에서 jenkins에 webhook을 보내면 Jenkinsfile에 정의한 pipeline에 따라 아래와 같은 흐름으로 CI/CD가 진행됩니다.
+
+- express-server에서 만든 Dockerfile에 따라 도커이미지를 build합니다.
+- 만들어진 이미지를 dockerhub에 push합니다.
+
+  github → docker → jenkins
