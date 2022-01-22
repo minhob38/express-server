@@ -5,7 +5,7 @@ import {
   findSggByName,
   findSggsInBound,
   findSggsAreas,
-} from '../queries/map-query';
+} from '@src/queries/map-query';
 import { ISgg, IResData, IBound, ISggArea } from '../types/types';
 import logger from '../config/winston-logger';
 // getSggs(inbound),getSggs getSggAreas getSgg

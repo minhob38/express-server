@@ -5,4 +5,7 @@ module.exports = {
     '^.+\\.js?$': 'babel-jest',
     '^.+\\.ts?$': 'ts-jest',
   },
+  moduleNameMapper: {
+    '^@src(.*)$': '<rootDir>/src/$1',
+  },
 };
