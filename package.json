@@ -13,7 +13,7 @@
     "docker:compose-down": "docker-compose down",
     "docker:db-up": "docker-compose -f docker-database/docker-compose.database.yml --env-file .env up -d",
     "docker:db-down": "docker-compose -f docker-database/docker-compose.database.yml --env-file .env down",
-    "test": "jest ./test"
+    "test": "jest"
   },
   "author": "kwon, minho",
   "license": "ISC",
