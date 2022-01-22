@@ -1,4 +1,3 @@
-// eslint-disable-next-line
 import { createToken } from '@src/utils/auth-util';
 
 describe('createToken 함수는 json web token을 반환해야합니다.', () => {

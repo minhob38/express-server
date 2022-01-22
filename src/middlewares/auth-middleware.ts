@@ -14,7 +14,7 @@ import { IJwtPayloadUserInfo } from '../types/types';
 dotenv.config();
 
 const { TOKEN_SECRET_KEY } = process.env;
-
+// eslint-disable-next-line
 export const checkAccessToken = async (
   req: express.Request,
   res: express.Response,
@@ -42,7 +42,7 @@ export const checkAccessToken = async (
     req.userInfo = { email };
 
     return next();
-  } catch {
+  } catch (err) {
     // TODO: decode 에러에 따라, 에러핸들링하기
     return next(createError(500, INTERNAL_SERVER_ERROR));
   }

@@ -12,7 +12,7 @@ export const errorHandler = (
     status: 'error',
     message: err.message || 'internal server error',
   };
-
+  console.log(err);
   return res.status(err.status || 500).json(data);
 };
 

@@ -82,6 +82,12 @@ winston으로 api 요청들을 logging 합니다.
 
 jenkins를 기반으로 ci/cd가 설정되어 있습니다.
 
-<!-- ## Test Code -->
-<!-- jest 기반 unit test -->
-<!-- supertest 기반 int test -->
+## Test Code
+
+### • unit test
+
+jest 기반 test 환경입니다.
+
+### • integration test
+
+supertest 기반 test 환경입니다.
