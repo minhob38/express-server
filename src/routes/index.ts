@@ -8,6 +8,6 @@ const router: express.Router = express.Router();
 
 router.use('/auth', authRouter);
 router.use('/board', checkAccessToken, boardRouter);
-router.use('/map', mapRouter);
+router.use('/map', checkAccessToken, mapRouter);
 
 export default router;
