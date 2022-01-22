@@ -1,0 +1,17 @@
+extends ./layout.pug
+
+block stylesheet
+  link(rel="stylesheet" href="/stylesheets/home.css")
+
+block content
+    h2 안녕하세요, Home입니다 : )
+    div.current 오늘의 날짜는 ...
+    span #{year}년
+    span #{month}월
+    span #{day}일
+    div.current 현재 시간은 ...
+    span #{hour}시
+    span #{minute}분
+    span #{second}초
+    button#greeting-button Greeting
+    script(src="/javascripts/home.js")
