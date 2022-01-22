@@ -21,7 +21,11 @@ const options = {
       },
     },
   },
-  apis: ['src/routes/auth-router.ts', 'src/routes/board-router.ts'],
+  apis: [
+    'src/routes/auth-router.ts',
+    'src/routes/board-router.ts',
+    'src/routes/map-router.ts',
+  ],
 };
 
 const openapiSpecification = swaggerJsdoc(options);

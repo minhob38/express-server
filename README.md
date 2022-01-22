@@ -12,6 +12,10 @@
 
 ### • map api
 
+<!-- ### • store api
+
+file 저장 api -->
+
 ### 📔 API Document
 
 api 요청/응답은 swagger를 기반으로 문서화되어 있습니다.

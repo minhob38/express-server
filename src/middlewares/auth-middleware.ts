@@ -47,5 +47,3 @@ export const checkAccessToken = async (
     return next(createError(500, INTERNAL_SERVER_ERROR));
   }
 };
-
-export const a = 3;
