@@ -91,3 +91,24 @@ jest 기반 test 환경입니다.
 ### • integration test
 
 supertest 기반 test 환경입니다.
+
+<!-- ### nodejs server
+
+nodejs는 javascript를 처리하는 eventloop가 single thread로 작동하며, 비동기 i/o 작업은 libuv에서 thread pool에 있는 multi thread로 처리합니다. 많은 thread를 가지지 않기에 context switching이 적고, thread가 적어 메모리를 덜 먹기때문에 cpu의 성능을 높일 수 있기에 multi thread에 비해 성능이 좋습니다. 따라서 nodejs는 가벼운 http 요청/응답을 처리함과 동시에 무거운 비동기 i/o를 동시에 처리할 수 있습니다. 반대로 무거운 http 요청/응답이라면 single thread이기에 서버가 느려질 수 있습니다.
+(비동기 i/o가 많으면 multi thread와 마찬가지로 느려집니다.)
+
+multi-thread / single-thread 비교
+
+- single core +
+  single thread + worker thread (4)
+  요청 a, b, c, d
+  a, b, c, d (처리중)
+  e, f, g (요청은 들어감)
+  -> nodejs는 많은 요청을 처리할 수 있음
+  -> nodejs는 비동기 i/o를 libuv에서 처리하기 때문에, 서버자체 성능은 떨어지지 않음 (서버자체는 single thread로 이벤트루프가 실행시킴)
+  -> 즉 nodejs는 cpu 연산이 적은 많은 요청과, 비동기 i/o처리가 많을때 좋습니다.
+
+multu thread
+요청 a, b, c, d
+a, b, c, d (처리중)
+e, f, g (대기중) -->
