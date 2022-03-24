@@ -9,7 +9,7 @@
     "server": "node -r module-alias/register dist/src/server.js",
     "docker:build": "docker build -t express-server:latest .",
     "docker:push": "docker tag express-server:latest minhob38/express-server:latest && docker push minhob38/express-server:latest",
-    "docker:compose-up": "docker-compose up",
+    "docker:compose-up": "docker-compose up -d",
     "docker:compose-down": "docker-compose down",
     "docker:db-up": "docker-compose -f docker-database/docker-compose.database.yml --env-file .env up -d",
     "docker:db-down": "docker-compose -f docker-database/docker-compose.database.yml --env-file .env down",

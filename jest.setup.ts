@@ -1,6 +1,6 @@
 import { Knex, knex } from 'knex';
-import knexConn from '@src/config/database-connection';
 import dotenv from 'dotenv';
+import knexConn from '@src/config/database-connection';
 import { INVALID_ENVIROMENT_VARIABLE } from '@src/constants/error';
 
 /* jest timeout */

@@ -22,4 +22,16 @@ router.get(
   }
 );
 
+router.get(
+  '/kill-server',
+  async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
+    console.log('server terminated : (');
+    throw new Error('kill-server');
+  }
+);
+
 export default router;
