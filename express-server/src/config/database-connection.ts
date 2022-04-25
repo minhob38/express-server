@@ -2,7 +2,7 @@ import { Knex, knex } from 'knex';
 import dotenv from 'dotenv';
 import { INVALID_ENVIROMENT_VARIABLE } from '../constants/error';
 
-dotenv.config();
+dotenv.config()
 
 const {
   DOCKER_DB_NAME,
