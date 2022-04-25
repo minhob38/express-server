@@ -5,8 +5,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    # container_name: express-server
+    container_name: express-server
     volumes:
       - ./.env:/usr/app/.env
     ports:
       - '8000-8001:8000'
+    deploy:
+      restart_policy:
+        condition: on-failure
+    # restart: always
