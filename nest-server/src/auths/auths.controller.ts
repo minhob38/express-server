@@ -1,5 +1,6 @@
+import { Controller, Get, Post, Body } from '@nestjs/common';
 import { AuthsService } from './auths.service';
-import { Controller, Get } from '@nestjs/common';
+import { createUserDto } from './dto/create-user.dto';
 
 @Controller('auths')
 export class AuthsController {
@@ -7,8 +8,10 @@ export class AuthsController {
     this.authsService = authsService;
   }
 
-  @Get('test')
-  test() {
+  @Post('signup')
+  async postSignup(@Body() dto: createUserDto): Promise<any> {
+    const { email, password } = dto;
+    await this.authsService.createUser(email, password);
     return 'hello';
   }
 }
