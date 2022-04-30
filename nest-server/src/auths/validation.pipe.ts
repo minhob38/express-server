@@ -17,7 +17,7 @@ import { plainToClass } from 'class-transformer';
 - https://docs.nestjs.com/pipes#custom-pipes
 */
 @Injectable()
-export class ValidationPipe implements PipeTransform<any> {
+export class CustomValidationPipe implements PipeTransform<any> {
   async transform(value: any, metadata: ArgumentMetadata) {
     const { metatype } = metadata;
     if (!metatype || !this.toValidate(metatype)) {
