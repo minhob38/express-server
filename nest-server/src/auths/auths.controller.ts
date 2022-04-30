@@ -1,3 +1,4 @@
+import { findUserByEmail } from './../../../express-server/src/queries/auth-query';
 import { Controller, Get, Post, Body } from '@nestjs/common';
 import { AuthsService } from './auths.service';
 import { createUserDto } from './dto/create-user.dto';
