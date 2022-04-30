@@ -1,4 +1,3 @@
-import { findUserByEmail } from './../../../express-server/src/queries/auth-query';
 import { Controller, Get, Post, Body } from '@nestjs/common';
 import { AuthsService } from './auths.service';
 import { createUserDto } from './dto/create-user.dto';
@@ -12,7 +11,8 @@ export class AuthsController {
   @Post('signup')
   async postSignup(@Body() dto: createUserDto): Promise<any> {
     const { email, password } = dto;
+    console.log(dto);
     await this.authsService.createUser(email, password);
-    return 'hello';
+    return 'hell1o';
   }
 }

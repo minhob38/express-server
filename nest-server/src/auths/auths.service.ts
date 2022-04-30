@@ -1,10 +1,10 @@
-import { createToken } from './../../../express-server/src/utils/auth-util';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class AuthsService {
   async createUser(email: string, password: string) {
     console.log('service');
+
     const user = await this.findUserByEmail(email);
 
     if (!user) return;
