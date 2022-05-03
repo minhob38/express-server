@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 
 /*
 [middleware]
-- controller 전에 요청을 처리합니다.
+- handler 전에 요청을 처리합니다.
 - https://docs.nestjs.com/middleware#middleware
 */
 @Injectable()

@@ -18,6 +18,3 @@ https://docs.nestjs.com/controllers#request-object
 @Injenctable을 통해 해당 class가 nestjs ioc container에 관리(di)될 수 있습니다.
 
 미들웨어 -> 가드 -> 인터셉터/파이프
-
-https://docs.nestjs.com/fundamentals/execution-context
-가드는 미들웨어와 달리, 다음 실행될 context를 안다?
