@@ -1,9 +1,10 @@
-import { Module } from '@nestjs/common';
+import { Module, MiddlewareConsumer } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthsModule } from './auths/auths.module';
+import { LoggerMiddleware } from './common/middleware/logger.middleware';
 
 // forRoot(동적모듈?)
 @Module({
@@ -26,4 +27,8 @@ import { AuthsModule } from './auths/auths.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer): any {
+    consumer.apply(LoggerMiddleware).forRoutes('/auths');
+  }
+}

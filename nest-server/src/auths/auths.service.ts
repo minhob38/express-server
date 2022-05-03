@@ -12,7 +12,6 @@ export class AuthsService {
 
   async createUser(email: string, password: string) {
     const user = await this.findUserByEmail(email);
-    console.log(user);
     if (!user) return;
 
     const hash = this.createHash(password);

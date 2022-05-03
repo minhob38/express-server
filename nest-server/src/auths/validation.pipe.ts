@@ -7,12 +7,14 @@ import {
 import { validate } from 'class-validator';
 import { plainToClass } from 'class-transformer';
 
-/* pipeline
+/*
+[pipeline]
 - pipeline은 input(요청)을 transformation 또는 validation을 합니다.
 - https://docs.nestjs.com/pipes#pipes
 */
 
-/* metadata
+/*
+[metadata]
 - controller에 들어오는 요청의 정보
 - https://docs.nestjs.com/pipes#custom-pipes
 */
