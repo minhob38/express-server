@@ -2,6 +2,7 @@ npm i -g @nestjs/cli
 https://docs.nestjs.com/cli/usages
 nest g mo auths
 nest g co
+nest g mi  // 미들웨어만들기
 
 controller: request / response 처리
 provider: business logic 처리
@@ -14,6 +15,3 @@ request 다루기
 https://docs.nestjs.com/controllers#request-object
 
 @Injenctable을 통해 해당 class가 nestjs ioc container에 관리(di)될 수 있습니다.
-
-pipeline
-https://docs.nestjs.com/pipes#custom-pipes
