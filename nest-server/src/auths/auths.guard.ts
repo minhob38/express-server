@@ -1,4 +1,3 @@
-import { findUserByEmail } from './../../../express-server/src/queries/auth-query';
 import {
   CanActivate,
   ExecutionContext,

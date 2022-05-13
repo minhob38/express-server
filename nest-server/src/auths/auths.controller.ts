@@ -6,7 +6,7 @@ import {
   ValidationPipe,
   UseGuards,
 } from '@nestjs/common';
-import { AuthsGuard } from './auths.guard';
+import { AuthsGuard, AuthTokenGuard } from './auths.guard';
 import { AuthsService } from './auths.service';
 import { PostSignupDto } from './dto/post-signup';
 import { PostSigninDto } from './dto/post-signin';
@@ -33,6 +33,7 @@ export class AuthsController {
     return await this.authsService.postSignin(email, password);
   }
 
+  @UseGuards(AuthTokenGuard)
   @Patch('password')
   async patchPassword(@Body() dto: PatchPasswordDto): Promise<IRes> {
     const { current_password: currentPassword, new_password: newPassword } =
