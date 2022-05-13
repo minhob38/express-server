@@ -16,13 +16,24 @@ export class AuthsRepository {
   }
 
   async createUser(email: string, hash: string) {
-    const user = await this.usersRepository
+    const inserted = await this.usersRepository
       .createQueryBuilder()
       .insert()
       .into(Users)
       .values({ email, password: hash })
       .returning('*')
       .execute();
-    return user;
+    return inserted;
+  }
+
+  async updatePassword(email: string, password: string) {
+    const updated = await this.usersRepository
+      .createQueryBuilder()
+      .update(Users)
+      .set({ password })
+      .where({ email })
+      .returning('*')
+      .execute();
+    return updated;
   }
 }

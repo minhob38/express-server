@@ -41,7 +41,7 @@ export class AuthsService {
       });
     }
 
-    const hash: string = user.password;
+    const hash = user.password;
     const isMatchPassword: boolean = await this.authHelper.getIsMatchPassword(
       password,
       hash,
@@ -54,12 +54,55 @@ export class AuthsService {
       });
     }
 
-    const token: string = this.authHelper.createToken(user.email);
+    const token = this.authHelper.createToken(user.email);
 
     return {
       status: 200,
       message: 'user signed in',
       data: { access_token: token },
+    };
+  }
+
+  async patchPassword(
+    email: string,
+    currentPassword: string,
+    newPassword: string,
+  ): Promise<IRes> {
+    if (currentPassword === newPassword) {
+      throw new BadRequestException({
+        status: 400,
+        message: 'password is same',
+      });
+    }
+
+    const user = await this.authsRepository.findUserByEmail(email);
+
+    if (!user) {
+      throw new BadRequestException({
+        status: 400,
+        message: 'user does not exists',
+      });
+    }
+
+    const crrentHash = user.password;
+    const isMatchPassword = await this.authHelper.getIsMatchPassword(
+      currentPassword,
+      crrentHash,
+    );
+
+    if (!isMatchPassword) {
+      throw new BadRequestException({
+        status: 400,
+        message: 'password is invalid',
+      });
+    }
+
+    const newHash = this.authHelper.createHash(newPassword);
+    await this.authsRepository.updatePassword(user.email, newHash);
+
+    return {
+      status: 200,
+      message: 'password changed',
     };
   }
 }
