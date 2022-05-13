@@ -1,5 +1,15 @@
-import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
+import { findUserByEmail } from './../../../express-server/src/queries/auth-query';
+import {
+  CanActivate,
+  ExecutionContext,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { Observable } from 'rxjs';
+import { Request } from 'express';
+import { AuthsService } from './auths.service';
+import { AuthsRepository } from './auths.repository';
+import { AuthsHelper } from './auths.helper';
 
 /*
 [guard]
@@ -16,6 +26,46 @@ export class AuthsGuard implements CanActivate {
   canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
+    return true;
+  }
+}
+
+@Injectable()
+export class AuthTokenGuard implements CanActivate {
+  constructor(
+    private readonly authsRepository: AuthsRepository,
+    private readonly authsHelper: AuthsHelper,
+  ) {}
+
+  canActivate(
+    context: ExecutionContext,
+  ): boolean | Promise<boolean> | Observable<boolean> {
+    const request = context.switchToHttp().getRequest();
+    return this.validateRequest(request);
+  }
+
+  private async validateRequest(req: Request) {
+    const accessToken = req.headers.authorization;
+    if (!accessToken) {
+      throw new UnauthorizedException({
+        status: 401,
+        message: 'no access token in header',
+      });
+    }
+
+    const decoded = this.authsHelper.decodeBearerToken(accessToken);
+    const { email } = decoded;
+    const user = await this.authsRepository.findUserByEmail(email);
+
+    if (!user) {
+      throw new UnauthorizedException({
+        status: 401,
+        message: 'invalid user id',
+      });
+    }
+
+    req.userInfo = { email: user.email };
+
     return true;
   }
 }
