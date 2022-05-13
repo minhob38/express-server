@@ -11,9 +11,9 @@ export class Users {
   @Column()
   password: string;
 
-  @Column()
-  created_at: Date;
+  @Column({ name: 'created_at' })
+  createdAt: Date;
 
-  @Column()
-  updated_at: Date;
+  @Column({ name: 'updated_at' })
+  updatedAt: Date;
 }

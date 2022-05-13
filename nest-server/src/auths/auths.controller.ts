@@ -7,7 +7,10 @@ import {
 } from '@nestjs/common';
 import { AuthsGuard } from './auths.guard';
 import { AuthsService } from './auths.service';
-import { createUserDto } from './dto/create-user.dto';
+import { PostSignupDto } from './dto/post-signup';
+import { PostSigninDto } from './dto/post-signin';
+import { IRes } from '../types/types';
+
 // import { CustomValidationPipe } from './validation.pipe';
 
 @UseGuards(AuthsGuard)
@@ -19,11 +22,17 @@ export class AuthsController {
 
   @Post('signup')
   async postSignup(
-    @Body(new ValidationPipe()) dto: createUserDto,
-  ): Promise<any> {
+    @Body(new ValidationPipe()) dto: PostSignupDto,
+  ): Promise<IRes> {
     const { email, password } = dto;
-    console.log('Post: signup');
-    await this.authsService.postSignup(email, password);
-    return 'hello';
+    return await this.authsService.postSignup(email, password);
+  }
+
+  @Post('signin')
+  async postSignin(
+    @Body(new ValidationPipe()) dto: PostSigninDto,
+  ): Promise<IRes> {
+    const { email, password } = dto;
+    return await this.authsService.postSignin(email, password);
   }
 }
