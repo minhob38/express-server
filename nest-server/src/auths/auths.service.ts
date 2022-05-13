@@ -1,39 +1,32 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Users } from '../repo/users.entity';
-
+import { AuthsRepository } from './auths.repository';
+import { IRes } from '../types/types';
+import { AuthsHelper } from './auths.helper';
 @Injectable()
 export class AuthsService {
-  constructor(
-    @InjectRepository(Users)
-    private usersRepository: Repository<Users>,
-  ) {}
+  constructor(private readonly authsRepository: AuthsRepository) {}
 
-  async createUser(email: string, password: string) {
-    const user = await this.findUserByEmail(email);
-    if (!user) return;
+  async postSignup(email: string, password: string): Promise<IRes> {
+    const user = await this.authsRepository.findUserByEmail(email);
+    if (user) {
+      // TODO: exception에 type 정의 ? : (
+      throw new BadRequestException({
+        status: 400,
+        message: 'user already exists',
+      });
+    }
 
-    const hash = this.createHash(password);
-    // await this.saveUser(email, hash);
-    const token = this.createToken(email);
-  }
+    const hash = AuthsHelper.createHash(password);
+    await this.authsRepository.createUser(email, hash);
+    const token = AuthsHelper.createToken(email);
 
-  // TODO: DB연동
-  private async findUserByEmail(email: string) {
-    // return this.usersRepository.findOne(email);
-    return this.usersRepository.find();
-  }
-
-  private createHash(password: string) {
-    return 'shdkjfhakjdhk';
-  }
-
-  private async saveUser(email: string, hash: string) {
-    return this.usersRepository.save({ email, password: hash });
-  }
-
-  private createToken(email: string) {
-    return 'token';
+    return {
+      status: 200,
+      message: 'user signed up',
+      data: { access_token: token },
+    };
   }
 }

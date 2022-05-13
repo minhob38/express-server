@@ -11,7 +11,7 @@ import { createUserDto } from './dto/create-user.dto';
 // import { CustomValidationPipe } from './validation.pipe';
 
 @UseGuards(AuthsGuard)
-@Controller('auths')
+@Controller('api/auths')
 export class AuthsController {
   constructor(private readonly authsService: AuthsService) {
     this.authsService = authsService;
@@ -23,7 +23,7 @@ export class AuthsController {
   ): Promise<any> {
     const { email, password } = dto;
     console.log('Post: signup');
-    await this.authsService.createUser(email, password);
+    await this.authsService.postSignup(email, password);
     return 'hello';
   }
 }

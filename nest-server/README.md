@@ -18,3 +18,5 @@ https://docs.nestjs.com/controllers#request-object
 @Injenctable을 통해 해당 class가 nestjs ioc container에 관리(di)될 수 있습니다.
 
 미들웨어 -> 가드 -> 인터셉터/파이프
+
+의존성주입되는건 provider들...
