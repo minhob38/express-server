@@ -8,7 +8,6 @@ import { LoggerMiddleware } from './common/middleware/logger.middleware';
 import validationSchema from './configs/validation-schema';
 import databaseConfig from './configs/database.config';
 import tokenConfig from './configs/token.config';
-import { config } from 'yargs';
 
 @Module({
   imports: [

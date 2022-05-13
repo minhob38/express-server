@@ -1,7 +1,7 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Users } from '../repo/users.entity';
+import { Users } from '../entities/users.entity';
 import { AuthsRepository } from './auths.repository';
 import { IRes } from '../types/types';
 import { AuthsHelper } from './auths.helper';
