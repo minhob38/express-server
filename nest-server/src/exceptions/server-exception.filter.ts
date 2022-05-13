@@ -16,19 +16,17 @@ export class ServerExceptionFiler implements ExceptionFilter {
   catch(exception: unknown, host: ArgumentsHost): void {
     const { httpAdapter } = this.httpAdapterHost;
     const ctx = host.switchToHttp();
-    console.log('222');
 
-    const httpStatus =
-      exception instanceof HttpException
-        ? exception.getStatus()
-        : HttpStatus.INTERNAL_SERVER_ERROR;
-
-    const responseBody = {
-      statusCode: httpStatus,
-      timestamp: new Date().toISOString(),
-      path: httpAdapter.getRequestUrl(ctx.getRequest()),
+    const res: { status: number; message: string | object } = {
+      status: HttpStatus.INTERNAL_SERVER_ERROR,
+      message: 'internal server error',
     };
 
-    httpAdapter.reply(ctx.getResponse(), responseBody, httpStatus);
+    if (exception instanceof HttpException) {
+      res.status = exception.getStatus();
+      res.message = exception.getResponse();
+    }
+
+    httpAdapter.reply(ctx.getResponse(), res, res.status);
   }
 }
