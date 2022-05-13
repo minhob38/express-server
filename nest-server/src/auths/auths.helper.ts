@@ -1,40 +1,43 @@
-import bcrypt from 'bcrypt';
+import { Injectable, Inject } from '@nestjs/common';
+import { ConfigType } from '@nestjs/config';
 import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
+import bcrypt from 'bcrypt';
+import tokenConfig from 'src/configs/token.config';
 import { IJwtPayloadUserInfo } from '../types/types';
-
+@Injectable()
 export class AuthsHelper {
-  static createHash = (password: string): string => {
+  constructor(
+    @Inject(tokenConfig.KEY)
+    private readonly tokenCfg: ConfigType<typeof tokenConfig>,
+  ) {}
+
+  createHash = (password: string): string => {
     const salt: string = bcrypt.genSaltSync(10);
     const hash: string = bcrypt.hashSync(password, salt);
-
     return hash;
   };
 
-  static getIsMatchPassword = async (
-    password: string,
-    hash: string,
-  ): Promise<boolean> => {
+  async getIsMatchPassword(password: string, hash: string): Promise<boolean> {
     const isPassword = await bcrypt.compareSync(password, hash);
 
     return isPassword;
-  };
+  }
 
-  static createToken = (email: string): string => {
-    const token: string = jwt.sign({ email }, process.env.TOKEN_SECRET_KEY, {
+  createToken(email: string): string {
+    const token: string = jwt.sign({ email }, this.tokenCfg.tokenSecretKey, {
       expiresIn: '14d',
     });
 
     return token;
-  };
+  }
 
-  static decodeBearerToken = (bearerToken: string): IJwtPayloadUserInfo => {
+  decodeBearerToken(bearerToken: string): IJwtPayloadUserInfo {
     const token: string = bearerToken.split('Bearer ')[1];
     const decode: IJwtPayloadUserInfo = jwt.verify(
       token,
-      process.env.TOKEN_SECRET_KEY,
+      this.tokenCfg.tokenSecretKey,
     ) as IJwtPayloadUserInfo;
 
     return decode;
-  };
+  }
 }

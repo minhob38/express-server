@@ -7,7 +7,10 @@ import { IRes } from '../types/types';
 import { AuthsHelper } from './auths.helper';
 @Injectable()
 export class AuthsService {
-  constructor(private readonly authsRepository: AuthsRepository) {}
+  constructor(
+    private readonly authsRepository: AuthsRepository,
+    private readonly authHelper: AuthsHelper,
+  ) {}
 
   async postSignup(email: string, password: string): Promise<IRes> {
     const user = await this.authsRepository.findUserByEmail(email);
@@ -19,9 +22,9 @@ export class AuthsService {
       });
     }
 
-    const hash = AuthsHelper.createHash(password);
+    const hash = this.authHelper.createHash(password);
     await this.authsRepository.createUser(email, hash);
-    const token = AuthsHelper.createToken(email);
+    const token = this.authHelper.createToken(email);
 
     return {
       status: 200,
