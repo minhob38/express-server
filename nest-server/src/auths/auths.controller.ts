@@ -3,10 +3,12 @@ import {
   Post,
   Patch,
   Body,
-  ValidationPipe,
   UseGuards,
+  Req,
+  BadRequestException,
 } from '@nestjs/common';
-import { AuthsGuard, AuthTokenGuard } from './auths.guard';
+import { Request } from 'express';
+import { AuthsGuard, AuthTokenGuard } from '../guards/auths.guard';
 import { AuthsService } from './auths.service';
 import { PostSignupDto } from './dto/post-signup';
 import { PostSigninDto } from './dto/post-signin';
@@ -35,10 +37,13 @@ export class AuthsController {
 
   @UseGuards(AuthTokenGuard)
   @Patch('password')
-  async patchPassword(@Body() dto: PatchPasswordDto): Promise<IRes> {
+  async patchPassword(
+    @Req() req: Request,
+    @Body() dto: PatchPasswordDto,
+  ): Promise<IRes> {
     const { current_password: currentPassword, new_password: newPassword } =
       dto;
-    const email = 'abc@gmail.com';
+    const { email } = req.userInfo;
     return await this.authsService.patchPassword(
       email,
       currentPassword,

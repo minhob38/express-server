@@ -6,9 +6,8 @@ import {
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { Request } from 'express';
-import { AuthsService } from './auths.service';
-import { AuthsRepository } from './auths.repository';
-import { AuthsHelper } from './auths.helper';
+import { AuthsRepository } from '../auths/auths.repository';
+import { AuthsHelper } from '../auths/auths.helper';
 
 /*
 [guard]
