@@ -23,7 +23,6 @@ export class AuthsRepository {
       .values({ email, password: hash })
       .returning('*')
       .execute();
-    console.log(user);
     return user;
   }
 }
