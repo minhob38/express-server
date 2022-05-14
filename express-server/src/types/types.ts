@@ -1,10 +1,35 @@
-import exp from 'constants';
+import { Request, Response, NextFunction } from 'express';
+import createError from 'http-errors';
 import jwt from 'jsonwebtoken';
 
 export interface IResData {
   status: 'error' | 'success';
   message: string;
   data?: any;
+}
+
+export interface IRouteCallback {
+  (req: Request, res: Response<IResData>, next: NextFunction): void;
+}
+
+/**
+ * error handler type
+ */
+export interface IErrorHandler {
+  (
+    err: createError.HttpError,
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): void;
+}
+
+/**
+ * http response  type
+ */
+export interface IHttpRes {
+  message?: string;
+  data?: { [key: string]: any } | any[] | string | null;
 }
 
 export interface IUser {
