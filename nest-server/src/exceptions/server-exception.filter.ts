@@ -15,7 +15,7 @@ export class ServerExceptionFiler implements ExceptionFilter {
   catch(exception: unknown, host: ArgumentsHost): void {
     const { httpAdapter } = this.httpAdapterHost;
     const ctx = host.switchToHttp();
-
+    console.log(exception);
     const res: { status: number; message: string | object } = {
       status: HttpStatus.INTERNAL_SERVER_ERROR,
       message: 'internal server error',

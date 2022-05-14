@@ -1,0 +1,24 @@
+<html>
+
+  <head>
+    <title>home</title>
+    <meta
+      name='viewport'
+      content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, shrink-to-fit=no'
+    />
+    <link rel='stylesheet' type='text/css' href='/styles/home.css' />
+  </head>
+  <body>
+    <h2>안녕하세요, Home입니다 : ) </h2>
+    <div class='current'>오늘의 날짜는 ...</div>
+    <span>{{currentDateTime.year}}년</span>
+    <span>{{currentDateTime.month}}월</span>
+    <span>{{currentDateTime.day}}일</span>
+    <div class='current'>현재 시간은 ...</div>
+    <span>{{currentDateTime.hour}}시</span>
+    <span>{{currentDateTime.minute}}분</span>
+    <span>{{currentDateTime.second}}초</span>
+    <button id='greeting-button'>Greeting</button>
+    <script src='/scripts/home.js'></script>
+  </body>
+</html>

@@ -9,14 +9,16 @@ import { ServerExceptionFiler } from './exceptions/server-exception.filter';
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
+  /* [mvc]
+  - https://docs.nestjs.com/techniques/mvc#model-view-controller
+  */
   app.useStaticAssets(path.join(__dirname, 'public'));
   app.setBaseViewsDir(path.join(__dirname, 'views'));
   app.setViewEngine('hbs');
 
-  /* validation
+  /* [validation]
   - https://docs.nestjs.com/techniques/validation#validation
   */
-  /* validation */
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
 
   /* [exception filter]
