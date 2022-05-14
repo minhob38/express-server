@@ -2,10 +2,10 @@ import {
   Controller,
   Post,
   Patch,
+  Delete,
   Body,
   UseGuards,
   Req,
-  BadRequestException,
 } from '@nestjs/common';
 import { Request } from 'express';
 import { AuthsGuard, AuthTokenGuard } from '../guards/auths.guard';
@@ -13,6 +13,7 @@ import { AuthsService } from './auths.service';
 import { PostSignupDto } from './dto/post-signup';
 import { PostSigninDto } from './dto/post-signin';
 import { PatchPasswordDto } from './dto/patch-password';
+import { DeleteSignoutDto } from './dto/delete-signout';
 import { IRes } from '../types/types';
 // import { CustomValidationPipe } from './validation.pipe';
 
@@ -49,5 +50,16 @@ export class AuthsController {
       currentPassword,
       newPassword,
     );
+  }
+
+  @UseGuards(AuthTokenGuard)
+  @Delete('signout')
+  async deleteSignout(
+    @Req() req: Request,
+    @Body() dto: DeleteSignoutDto,
+  ): Promise<IRes> {
+    const { password } = dto;
+    const { email } = req.userInfo;
+    return await this.authsService.deleteSignout(email, password);
   }
 }

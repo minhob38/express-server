@@ -36,4 +36,15 @@ export class AuthsRepository {
       .execute();
     return updated;
   }
+
+  async removeUserByEmail(email: string) {
+    const deleted = await this.usersRepository
+      .createQueryBuilder()
+      .delete()
+      .from(Users)
+      .where({ email })
+      .returning('*')
+      .execute();
+    return deleted;
+  }
 }

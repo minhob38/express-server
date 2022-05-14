@@ -105,4 +105,34 @@ export class AuthsService {
       message: 'password changed',
     };
   }
+
+  async deleteSignout(email: string, password: string): Promise<IRes> {
+    const user = await this.authsRepository.findUserByEmail(email);
+    if (!user) {
+      throw new BadRequestException({
+        status: 400,
+        message: 'user does not exists',
+      });
+    }
+
+    const hash = user.password;
+    const isMatchPassword: boolean = await this.authHelper.getIsMatchPassword(
+      password,
+      hash,
+    );
+
+    if (!isMatchPassword) {
+      throw new BadRequestException({
+        status: 400,
+        message: 'password is invalid',
+      });
+    }
+
+    await this.authsRepository.removeUserByEmail(email);
+
+    return {
+      status: 200,
+      message: 'user signed out',
+    };
+  }
 }
