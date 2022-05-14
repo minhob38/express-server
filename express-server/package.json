@@ -25,6 +25,7 @@
     "express": "^4.17.2",
     "express-validator": "^6.14.0",
     "http-errors": "^2.0.0",
+    "joi": "^17.6.0",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.95.14",
     "module-alias": "^2.2.2",
