@@ -27,3 +27,7 @@ useFilters 해보기
 interceptor
 
 class-transform
+
+```
+$ npm run entity-generator -- -h localhost -d docker-database -p 5435 -u postgres -x <password> -e postgres
+```
