@@ -1,4 +1,3 @@
-import express from 'express';
 import createError from 'http-errors';
 import dotenv from 'dotenv';
 import { decodeBearerToken } from '../utils/auth-util';
