@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import express from 'express';
 import createError from 'http-errors';
 import jwt from 'jsonwebtoken';
 
@@ -9,7 +9,11 @@ export interface IResData {
 }
 
 export interface IRouteCallback {
-  (req: Request, res: Response<IResData>, next: NextFunction): void;
+  (
+    req: express.Request,
+    res: express.Response<IResData>,
+    next: express.NextFunction
+  ): void;
 }
 
 /**
@@ -18,9 +22,9 @@ export interface IRouteCallback {
 export interface IErrorHandler {
   (
     err: createError.HttpError,
-    req: Request,
-    res: Response,
-    next: NextFunction
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
   ): void;
 }
 

@@ -1,4 +1,3 @@
-import express from 'express';
 import createError from 'http-errors';
 import {
   createPost,
@@ -7,14 +6,10 @@ import {
   updatePost,
   removePostById,
 } from '../queries/board-query';
-import { IPost, IResData } from '../types/types';
+import { IPost, IRouteCallback } from '../types/types';
 import logger from '../config/winston-logger';
 
-export const postPost = async (
-  req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
-) => {
+export const postPost: IRouteCallback = async (req, res, next) => {
   try {
     logger.info(`${req.method} ${req.originalUrl}`);
     const { author, title, content } = req.body as {
@@ -24,103 +19,77 @@ export const postPost = async (
     };
     await createPost(author, title, content);
 
-    const data: IResData = {
+    return res.status(200).json({
       status: 'success',
       message: 'created post',
-    };
-
-    return res.status(200).json(data);
+    });
   } catch (err) {
     logger.error(`${req.method} ${req.originalUrl} ${(err as Error).message}`);
     return next(createError(500, (err as Error).message));
   }
 };
 
-export const getPosts = async (
-  req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
-) => {
+export const getPosts: IRouteCallback = async (req, res, next) => {
   try {
     logger.info(`${req.method} ${req.originalUrl}`);
     const posts: IPost[] = await findPosts();
 
-    const data: IResData = {
+    return res.status(200).json({
       status: 'success',
       message: 'found posts',
       data: posts,
-    };
-
-    return res.status(200).json(data);
+    });
   } catch (err) {
     logger.error(`${req.method} ${req.originalUrl} ${(err as Error).message}`);
     return next(createError(500, (err as Error).message));
   }
 };
 
-export const getPost = async (
-  req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
-) => {
+export const getPost: IRouteCallback = async (req, res, next) => {
   try {
     logger.info(`${req.method} ${req.originalUrl}`);
     const { postId } = req.params as { postId: string };
     const post: IPost | null = await findPostById(parseInt(postId, 10));
 
-    const data: IResData = {
+    // TODO: data가 null일때 응답처리하기
+    return res.status(200).json({
       status: 'success',
       message: 'found post',
       data: post,
-    };
-
-    // TODO: data가 null일때 응답처리하기
-    return res.status(200).json(data);
+    });
   } catch (err) {
     logger.error(`${req.method} ${req.originalUrl} ${(err as Error).message}`);
     return next(createError(500, (err as Error).message));
   }
 };
 
-export const patchPost = async (
-  req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
-) => {
+export const patchPost: IRouteCallback = async (req, res, next) => {
   try {
     logger.info(`${req.method} ${req.originalUrl}`);
     const { postId } = req.params as { postId: string };
     const { content } = req.body as { content: string };
     await updatePost(parseInt(postId, 10), content);
 
-    const data: IResData = {
+    return res.status(200).json({
       status: 'success',
       message: 'edited post',
-    };
-
-    return res.status(200).json(data);
+    });
   } catch (err) {
     logger.error(`${req.method} ${req.originalUrl} ${(err as Error).message}`);
     return next(createError(500, (err as Error).message));
   }
 };
 
-export const deletePost = async (
-  req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
-) => {
+export const deletePost: IRouteCallback = async (req, res, next) => {
   try {
     logger.info(`${req.method} ${req.originalUrl}`);
     const { postId } = req.params as { postId: string };
     await removePostById(parseInt(postId, 10));
 
-    const data: IResData = {
+    return res.status(200).json({
       status: 'success',
       message: 'deleted post',
-    };
-
-    return res.status(200).json(data);
+    });
   } catch (err) {
     logger.log({
       level: 'error',

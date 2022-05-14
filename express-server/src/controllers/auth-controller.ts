@@ -1,4 +1,3 @@
-import express from 'express';
 import createError from 'http-errors';
 import {
   createHash,
@@ -11,96 +10,74 @@ import {
   createUser,
   updatePassword,
 } from '../queries/auth-query';
-import { IResData, IUser } from '../types/types';
+import { IUser, IRouteCallback } from '../types/types';
 import logger from '../config/winston-logger';
 
-export const postSignUp = async (
-  req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
-) => {
+export const postSignUp: IRouteCallback = async (req, res, next) => {
   try {
     logger.info(`${req.method} ${req.originalUrl}`);
     const { email, password } = req.body as { email: string; password: string };
     const user: IUser = await findUserByEmail(email);
 
     if (user) {
-      const data: IResData = {
+      return res.status(200).json({
         status: 'error',
         message: 'user already exists',
-      };
-
-      return res.status(200).json(data);
+      });
     }
 
     const hash: string = createHash(password);
     const insertedUser: IUser = await createUser(email, hash);
     const token: string = createToken(insertedUser.email);
 
-    const data: IResData = {
+    return res.status(200).json({
       status: 'success',
       message: 'user signed up',
       data: { access_token: token },
-    };
-
-    return res.status(200).json(data);
+    });
   } catch (err) {
     logger.error(`${req.method} ${req.originalUrl} ${(err as Error).message}`);
     return next(createError(500, (err as Error).message));
   }
 };
 
-export const postSignIn = async (
-  req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
-) => {
+export const postSignIn: IRouteCallback = async (req, res, next) => {
   try {
     logger.info(`${req.method} ${req.originalUrl}`);
     const { email, password } = req.body as { email: string; password: string };
     const user: IUser = await findUserByEmail(email);
 
     if (!user) {
-      const data: IResData = {
+      return res.status(200).json({
         status: 'error',
         message: 'user does not exists',
-      };
-
-      return res.status(200).json(data);
+      });
     }
 
     const hash: string = user.password;
     const isMatchPassword: boolean = await getIsMatchPassword(password, hash);
 
     if (!isMatchPassword) {
-      const data: IResData = {
+      return res.status(200).json({
         status: 'error',
         message: 'password is invalid',
-      };
-
-      return res.status(200).json(data);
+      });
     }
 
     const token: string = createToken(user.email);
 
-    const data: IResData = {
+    return res.status(200).json({
       status: 'success',
       message: 'user signed in',
       data: { access_token: token },
-    };
-
-    return res.status(200).json(data);
+    });
   } catch (err) {
     logger.error(`${req.method} ${req.originalUrl} ${(err as Error).message}`);
     return next(createError(500, (err as Error).message));
   }
 };
 
-export const patchPassword = async (
-  req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
-) => {
+export const patchPassword = async (req, res, next) => {
   try {
     logger.info(`${req.method} ${req.originalUrl}`);
     const {
@@ -114,23 +91,19 @@ export const patchPassword = async (
     };
 
     if (currentPassword === newPassword) {
-      const data: IResData = {
+      return res.status(200).json({
         status: 'error',
         message: 'password is same',
-      };
-
-      return res.status(200).json(data);
+      });
     }
 
     const user: IUser = await findUserByEmail(email);
 
     if (!user) {
-      const data: IResData = {
+      return res.status(200).json({
         status: 'error',
         message: 'user does not exists',
-      };
-
-      return res.status(200).json(data);
+      });
     }
 
     const crrentHash: string = user.password;
@@ -140,68 +113,54 @@ export const patchPassword = async (
     );
 
     if (!isMatchPassword) {
-      const data: IResData = {
+      return res.status(200).json({
         status: 'error',
         message: 'password is invalid',
-      };
-
-      return res.status(200).json(data);
+      });
     }
 
     const newHash: string = createHash(newPassword);
     await updatePassword(user.email, newHash);
 
-    const data: IResData = {
+    return res.status(200).json({
       status: 'success',
       message: 'password changed',
-    };
-
-    return res.status(200).json(data);
+    });
   } catch (err) {
     logger.error(`${req.method} ${req.originalUrl} ${(err as Error).message}`);
     return next(createError(500, (err as Error).message));
   }
 };
 
-export const deleteSignOut = async (
-  req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
-) => {
+export const deleteSignOut: IRouteCallback = async (req, res, next) => {
   try {
     logger.info(`${req.method} ${req.originalUrl}`);
     const { email, password } = req.body as { email: string; password: string };
     const user: IUser = await findUserByEmail(email);
 
     if (!user) {
-      const data: IResData = {
+      return res.status(200).json({
         status: 'error',
         message: 'user does not exists',
-      };
-
-      return res.status(200).json(data);
+      });
     }
 
     const hash: string = user.password;
     const isMatchPassword: boolean = await getIsMatchPassword(password, hash);
 
     if (!isMatchPassword) {
-      const data: IResData = {
+      return res.status(200).json({
         status: 'error',
         message: 'password is invalid',
-      };
-
-      return res.status(200).json(data);
+      });
     }
 
     await removeUserByEmail(email);
 
-    const data: IResData = {
+    return res.status(200).json({
       status: 'success',
       message: 'user signed out',
-    };
-
-    return res.status(200).json(data);
+    });
   } catch (err) {
     logger.error(`${req.method} ${req.originalUrl} ${(err as Error).message}`);
     return next(createError(500, (err as Error).message));
