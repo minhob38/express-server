@@ -3,7 +3,7 @@ import { ConfigType } from '@nestjs/config';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import tokenConfig from 'src/configs/token.config';
-import { IJwtPayloadUserInfo } from '../types/types';
+import { IJwtPayloadUserInfo } from '../../types/types';
 @Injectable()
 export class AuthsHelper {
   constructor(

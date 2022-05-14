@@ -8,13 +8,13 @@ import {
   Req,
 } from '@nestjs/common';
 import { Request } from 'express';
-import { AuthsGuard, AuthTokenGuard } from '../guards/auths.guard';
+import { AuthsGuard, AuthTokenGuard } from '../../guards/auths.guard';
 import { AuthsService } from './auths.service';
 import { PostSignupDto } from './dto/post-signup';
 import { PostSigninDto } from './dto/post-signin';
 import { PatchPasswordDto } from './dto/patch-password';
 import { DeleteSignoutDto } from './dto/delete-signout';
-import { IRes } from '../types/types';
+import { IRes } from '../../types/types';
 // import { CustomValidationPipe } from './validation.pipe';
 
 @UseGuards(AuthsGuard)

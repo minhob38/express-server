@@ -3,15 +3,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthsModule } from './auths/auths.module';
+import { AuthsModule } from './modules/auths/auths.module';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
-import { BoardModule } from './board/board.module';
-import { BoardSService } from './board-s/board-s.service';
-import { BoardsService } from './boards/boards.service';
-import { BoardsModule } from './boards/boards.module';
-import { MapsService } from './maps/maps.service';
-import { MapsModule } from './maps/maps.module';
-import { PagesModule } from './pages/pages.module';
+import { BoardsModule } from './modules/boards/boards.module';
+import { MapsModule } from './modules/maps/maps.module';
+import { PagesModule } from './modules/pages/pages.module';
 import validationSchema from './configs/validation-schema';
 import databaseConfig from './configs/database.config';
 import tokenConfig from './configs/token.config';
@@ -43,13 +39,12 @@ import tokenConfig from './configs/token.config';
       },
     }),
     AuthsModule,
-    BoardModule,
     BoardsModule,
     MapsModule,
     PagesModule,
   ],
   controllers: [AppController],
-  providers: [AppService, BoardSService, BoardsService, MapsService],
+  providers: [AppService],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer): any {

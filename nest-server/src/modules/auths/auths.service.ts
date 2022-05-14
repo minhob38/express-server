@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { AuthsRepository } from './auths.repository';
 import { AuthsHelper } from './auths.helper';
-import { IRes } from '../types/types';
+import { IRes } from '../../types/types';
 @Injectable()
 export class AuthsService {
   constructor(
