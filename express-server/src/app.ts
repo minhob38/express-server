@@ -1,15 +1,19 @@
 import express from 'express';
 import path from 'path';
+import cors from 'cors';
 import morgan from 'morgan';
 import routes from './routes';
 import pageRoutes from './routes/page-router';
 import testRoutes from './routes/test-router';
 import { errorHandler, notFoundHandler } from './middlewares/error-middleware';
 import { openapiSpecification, swaggerUi } from './configs/swagger-config';
+import corsConfig from './configs/cors-config';
 
 const app: express.Application = express();
 
 app.use(morgan('dev'));
+
+app.use(cors(corsConfig));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
