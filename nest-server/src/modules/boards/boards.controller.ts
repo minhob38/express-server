@@ -8,7 +8,6 @@ import {
   Param,
   UseGuards,
 } from '@nestjs/common';
-import { Request } from 'express';
 import { BoardsService } from './boards.service';
 import { AuthTokenGuard } from '../../guards/auths.guard';
 import { PostPostsDto } from './dto/post-posts.dto';

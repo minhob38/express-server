@@ -10,11 +10,6 @@ export class BoardsRepository {
     private postsRepository: Repository<Posts>,
   ) {}
 
-  // async findUserByEmail(email: string) {
-  //   const user = await this.usersRepository.findOne({ where: { email } });
-  //   return user;
-  // }
-
   async createPost(author: string, title: string, content: string) {
     const inserted = await this.postsRepository
       .createQueryBuilder()

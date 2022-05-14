@@ -1,4 +1,4 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { BoardsRepository } from './boards.repository';
 import { IRes } from '../../types/types';
 

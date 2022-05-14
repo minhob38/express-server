@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { BoardsController } from './boards.controller';
-import { Posts } from '../../entities/posts.entity';
 import { BoardsService } from './boards.service';
+import { Posts } from '../../entities/posts.entity';
 import { BoardsRepository } from './boards.repository';
 
 /* AuthTokenGuard error 해결하기 :(
