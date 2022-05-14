@@ -11,6 +11,7 @@ import corsConfig from './configs/cors-config';
 import checkEnv from './configs/check-env';
 
 checkEnv();
+
 const app: express.Application = express();
 
 app.use(morgan('dev'));

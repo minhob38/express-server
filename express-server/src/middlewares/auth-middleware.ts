@@ -4,7 +4,6 @@ import { decodeBearerToken } from '../utils/auth-util';
 import { findUserByEmail } from '../queries/auth-query';
 import {
   NO_AUTHORIZATION_TOKEN,
-  INVALID_ENVIROMENT_VARIABLE,
   INTERNAL_SERVER_ERROR,
   USER_DOES_NOT_EXISTS,
 } from '../constants/error';
@@ -12,7 +11,6 @@ import { IRouteCallback, IJwtPayloadUserInfo } from '../types/types';
 
 dotenv.config();
 
-const { TOKEN_SECRET_KEY } = process.env;
 // eslint-disable-next-line
 export const checkAccessToken: IRouteCallback = async (req, res, next) => {
   try {
@@ -20,10 +18,6 @@ export const checkAccessToken: IRouteCallback = async (req, res, next) => {
 
     if (!accessToken) {
       return next(createError(401, NO_AUTHORIZATION_TOKEN));
-    }
-
-    if (!TOKEN_SECRET_KEY) {
-      throw new Error(INVALID_ENVIROMENT_VARIABLE);
     }
 
     const decode: IJwtPayloadUserInfo = decodeBearerToken(accessToken);
