@@ -7,7 +7,7 @@ import {
   deleteSignOut,
 } from '@src/controllers/auth-controller';
 import { validatorErrorChecker } from '@src/middlewares/validation-middleware';
-import { checkIsValidPassword } from '@src/utils/validation-helper';
+import { checkIsValidPassword } from '@src/utils/validation-util';
 
 const router: express.Router = express.Router();
 
