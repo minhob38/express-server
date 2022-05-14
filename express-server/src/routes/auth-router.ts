@@ -72,6 +72,10 @@ const router: express.Router = express.Router();
  */
 router.post(
   '/signup',
+  /* [express validator]
+  - https://express-validator.github.io/docs/
+  - https://github.com/validatorjs/validator.js
+  */
   [
     body('email')
       .exists({ checkFalsy: true })
