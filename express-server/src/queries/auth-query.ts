@@ -1,4 +1,4 @@
-import knex from '../config/database-connection';
+import knex from '../configs/database-connection';
 import { IUser } from '../types/types';
 
 export const findUserByEmail = async (email: string): Promise<IUser> => {

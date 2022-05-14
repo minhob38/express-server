@@ -1,4 +1,4 @@
-import knex from '../config/database-connection';
+import knex from '../configs/database-connection';
 import { IPost } from '../types/types';
 
 export const createPost = async (

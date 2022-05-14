@@ -11,7 +11,7 @@ import {
   updatePassword,
 } from '../queries/auth-query';
 import { IUser, IRouteCallback } from '../types/types';
-import logger from '../config/winston-logger';
+import logger from '../configs/winston-logger';
 
 export const postSignUp: IRouteCallback = async (req, res, next) => {
   try {

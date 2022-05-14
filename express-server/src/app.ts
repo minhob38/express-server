@@ -5,7 +5,7 @@ import routes from './routes';
 import pageRoutes from './routes/page-router';
 import testRoutes from './routes/test-router';
 import { errorHandler, notFoundHandler } from './middlewares/error-middleware';
-import { openapiSpecification, swaggerUi } from './config/swagger-config';
+import { openapiSpecification, swaggerUi } from './configs/swagger-config';
 
 const app: express.Application = express();
 

@@ -1,4 +1,4 @@
-import knex from '../config/database-connection';
+import knex from '../configs/database-connection';
 import { ISgg, IBound, ISggArea } from '../types/types';
 
 export const findSggs = async (): Promise<ISgg[]> => {

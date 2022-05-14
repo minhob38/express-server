@@ -7,7 +7,7 @@ import {
   removePostById,
 } from '../queries/board-query';
 import { IPost, IRouteCallback } from '../types/types';
-import logger from '../config/winston-logger';
+import logger from '../configs/winston-logger';
 
 export const postPost: IRouteCallback = async (req, res, next) => {
   try {

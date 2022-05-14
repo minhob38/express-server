@@ -7,7 +7,7 @@ import {
   findSggsAreas,
 } from '@src/queries/map-query';
 import { ISgg, IResData, IBound, ISggArea } from '../types/types';
-import logger from '../config/winston-logger';
+import logger from '../configs/winston-logger';
 // getSggs(inbound),getSggs getSggAreas getSgg
 export const getSggs = async (
   req: express.Request,
