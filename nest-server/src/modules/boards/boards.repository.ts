@@ -26,25 +26,35 @@ export class BoardsRepository {
     return inserted;
   }
 
-  // async updatePassword(email: string, password: string) {
-  //   const updated = await this.usersRepository
-  //     .createQueryBuilder()
-  //     .update(Users)
-  //     .set({ password })
-  //     .where({ email })
-  //     .returning('*')
-  //     .execute();
-  //   return updated;
-  // }
+  async findPosts() {
+    const posts = await this.postsRepository.find();
+    return posts;
+  }
 
-  // async removeUserByEmail(email: string) {
-  //   const deleted = await this.usersRepository
-  //     .createQueryBuilder()
-  //     .delete()
-  //     .from(Users)
-  //     .where({ email })
-  //     .returning('*')
-  //     .execute();
-  //   return deleted;
-  // }
+  async findPost(postId: number) {
+    const posts = await this.postsRepository.findOne({ where: { id: postId } });
+    return posts;
+  }
+
+  async updatePost(postId: number, content: string) {
+    const updated = await this.postsRepository
+      .createQueryBuilder()
+      .update(Posts)
+      .set({ content })
+      .where({ id: postId })
+      .returning('*')
+      .execute();
+    return updated;
+  }
+
+  async removePost(postId: number) {
+    const deleted = await this.postsRepository
+      .createQueryBuilder()
+      .delete()
+      .from(Posts)
+      .where({ id: postId })
+      .returning('*')
+      .execute();
+    return deleted;
+  }
 }
