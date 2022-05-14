@@ -1,6 +1,6 @@
-import { IsNotEmpty, IsNumberString } from 'class-validator';
+import { IsNotEmpty, IsNumberString, IsString } from 'class-validator';
 
-export class GetSggsDto {
+export class GetSggsQueryDto {
   @IsNotEmpty()
   @IsNumberString()
   south: string;
@@ -16,4 +16,10 @@ export class GetSggsDto {
   @IsNotEmpty()
   @IsNumberString()
   east: string;
+}
+
+export class GetSggsParamDto {
+  @IsNotEmpty()
+  @IsString()
+  sggName: string;
 }

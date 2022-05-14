@@ -1,17 +1,7 @@
-import {
-  Controller,
-  Post,
-  Get,
-  Patch,
-  Delete,
-  Body,
-  Param,
-  UseGuards,
-  Query,
-} from '@nestjs/common';
+import { Controller, Get, Param, UseGuards, Query } from '@nestjs/common';
 import { MapsService } from './maps.service';
 import { AuthTokenGuard } from '../../guards/auths.guard';
-import { GetSggsDto } from './dto/get-sggs.dto';
+import { GetSggsQueryDto, GetSggsParamDto } from './dto/get-sggs.dto';
 import { IRes } from '../../types/types';
 
 @Controller('api/maps')
@@ -25,13 +15,13 @@ export class MapsController {
 
   // TODO: sggs? sggs @Get('sggs')로 처리하는법 찾아보기 : (
   @Get('sgg')
-  async getSggQuery(@Query() dto: GetSggsDto): Promise<IRes> {
+  async getSggQuery(@Query() dto: GetSggsQueryDto): Promise<IRes> {
     const { south, west, north, east } = dto;
     return await this.mapsService.getSggQuery(south, west, north, east);
   }
 
   @Get('sggs/:sggName')
-  async getSgg(@Param() dto): Promise<IRes> {
+  async getSgg(@Param() dto: GetSggsParamDto): Promise<IRes> {
     const { sggName } = dto;
     return await this.mapsService.getSgg(sggName);
   }
