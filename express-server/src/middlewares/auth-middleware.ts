@@ -9,17 +9,13 @@ import {
   INTERNAL_SERVER_ERROR,
   USER_DOES_NOT_EXISTS,
 } from '../constants/error';
-import { IJwtPayloadUserInfo } from '../types/types';
+import { IRouteCallback, IJwtPayloadUserInfo } from '../types/types';
 
 dotenv.config();
 
 const { TOKEN_SECRET_KEY } = process.env;
 // eslint-disable-next-line
-export const checkAccessToken = async (
-  req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
-) => {
+export const checkAccessToken: IRouteCallback = async (req, res, next) => {
   try {
     const accessToken: string | undefined = req.headers.authorization;
 

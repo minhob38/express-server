@@ -23,7 +23,7 @@ export interface IErrorHandler {
   (
     err: createError.HttpError,
     req: express.Request,
-    res: express.Response,
+    res: express.Response<Pick<IResData, 'status' | 'message'>>,
     next: express.NextFunction
   ): void;
 }

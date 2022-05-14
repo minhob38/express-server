@@ -1,30 +1,15 @@
-import express from 'express';
-import createError from 'http-errors';
-import { IResData } from '../types/types';
+import { IErrorHandler, IRouteCallback } from '../types/types';
 
-export const errorHandler = (
-  err: createError.HttpError,
-  req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
-) => {
-  const data: IResData = {
+export const errorHandler: IErrorHandler = (err, req, res, next) => {
+  return res.status(err.status || 500).json({
     status: 'error',
     message: err.message || 'internal server error',
-  };
-  console.log(err);
-  return res.status(err.status || 500).json(data);
+  });
 };
 
-export const notFoundHandler = (
-  req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
-) => {
-  const data: IResData = {
+export const notFoundHandler: IRouteCallback = (req, res, next) => {
+  return res.status(404).json({
     status: 'error',
     message: 'not found',
-  };
-
-  return res.status(404).json(data);
+  });
 };
