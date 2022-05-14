@@ -2,7 +2,8 @@ import { validationResult } from 'express-validator';
 import createError from 'http-errors';
 import { IRouteCallback } from '../types/types';
 
-const validatorErrorChecker: IRouteCallback = (req, res, next) => {
+// eslint-disable-next-line
+export const validatorErrorChecker: IRouteCallback = (req, res, next) => {
   const errors = validationResult(req);
   const array = errors.array()[0];
 
@@ -11,5 +12,3 @@ const validatorErrorChecker: IRouteCallback = (req, res, next) => {
   }
   return next();
 };
-
-export default validatorErrorChecker;

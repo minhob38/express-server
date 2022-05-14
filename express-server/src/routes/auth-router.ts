@@ -1,10 +1,13 @@
 import express from 'express';
+import { body } from 'express-validator';
 import {
   postSignUp,
   postSignIn,
   patchPassword,
   deleteSignOut,
-} from '../controllers/auth-controller';
+} from '@src/controllers/auth-controller';
+import { validatorErrorChecker } from '@src/middlewares/validation-middleware';
+import { checkIsValidPassword } from '@src/utils/validation-helper';
 
 const router: express.Router = express.Router();
 
@@ -67,7 +70,23 @@ const router: express.Router = express.Router();
  *                   type: string
  *                   description: internal server error
  */
-router.post('/signup', postSignUp);
+router.post(
+  '/signup',
+  [
+    body('email')
+      .exists({ checkFalsy: true })
+      .withMessage('no email is in body')
+      .isEmail()
+      .withMessage('invalid email format'),
+    body('password')
+      .exists({ checkFalsy: true })
+      .withMessage('no password is in body')
+      .custom(checkIsValidPassword)
+      .withMessage('invalid password format'),
+    validatorErrorChecker,
+  ],
+  postSignUp
+);
 
 /**
  * @openapi
