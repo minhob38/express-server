@@ -6,7 +6,6 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { HttpAdapterHost } from '@nestjs/core';
-
 /* https://docs.nestjs.com/exception-filters#catch-everything */
 /* https://docs.nestjs.com/faq/http-adapter#http-adapter */
 @Catch()
