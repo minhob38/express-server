@@ -1,11 +1,18 @@
 import { NestFactory, HttpAdapterHost } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import path from 'path';
 import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './exceptions/http-exception.filter';
 import { ServerExceptionFiler } from './exceptions/server-exception.filter';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+
+  app.useStaticAssets(path.join(__dirname, 'public'));
+  app.setBaseViewsDir(path.join(__dirname, 'views'));
+  app.setViewEngine('hbs');
+
   /* validation
   - https://docs.nestjs.com/techniques/validation#validation
   */
