@@ -31,3 +31,6 @@ class-transform
 ```
 $ npm run entity-generator -- -h localhost -d docker-database -p 5435 -u postgres -x <password> -e postgres
 ```
+
+custom validator
+transfromer

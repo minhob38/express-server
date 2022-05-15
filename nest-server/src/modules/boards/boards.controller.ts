@@ -27,6 +27,7 @@ export class BoardsController {
     return await this.boardsService.postPosts(author, title, content);
   }
 
+  @UseGuards(AuthTokenGuard)
   @Get('posts')
   async getPosts(): Promise<IRes> {
     return await this.boardsService.getPosts();

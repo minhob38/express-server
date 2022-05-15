@@ -10,5 +10,10 @@ import { AuthsHelper } from './auths.helper';
   controllers: [AuthsController],
   providers: [AuthsService, AuthsRepository, AuthsHelper],
   imports: [TypeOrmModule.forFeature([Users])],
+  exports: [
+    /* guard에서 사용(injection)하기 때문에 export */
+    AuthsRepository,
+    AuthsHelper,
+  ],
 })
 export class AuthsModule {}
