@@ -17,3 +17,18 @@ https://github.com/nestjs/nest/issues/3856
   imports: [TypeOrmModule.forFeature([Posts]), AuthsModule],
 })
 export class BoardsModule {}
+
+/* [🔎 injection]
+- a. module로 import해서, module에 있는 provider를 injection합니다. (이때 해당 module의 exports에 있는 provider들이 injection 됩니다.)
+@Module({
+  controllers: [BoardsController],
+  providers: [BoardsService, BoardsRepository],
+  imports: [TypeOrmModule.forFeature([Posts]), AuthsModule],
+})
+- b. module을 import하지 않고, provicer를 바로 import해서 injection합니다.
+@Module({
+  controllers: [BoardsController],
+  providers: [BoardsService, BoardsRepository, AuthsRepository, AuthsHelper],
+  imports: [TypeOrmModule.forFeature([Posts, Users])],
+});
+*/

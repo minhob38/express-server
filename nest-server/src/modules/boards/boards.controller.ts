@@ -16,7 +16,7 @@ import { PatchPostParamDto, PatchPostBodyDto } from './dto/patch-post.dto';
 import { DeletePostDto } from './dto/delete-post.dto';
 import { IRes } from '../../types/types';
 
-// @UseGuards(AuthTokenGuard)
+@UseGuards(AuthTokenGuard)
 @Controller('api/boards')
 export class BoardsController {
   constructor(private readonly boardsService: BoardsService) {}
@@ -27,7 +27,6 @@ export class BoardsController {
     return await this.boardsService.postPosts(author, title, content);
   }
 
-  @UseGuards(AuthTokenGuard)
   @Get('posts')
   async getPosts(): Promise<IRes> {
     return await this.boardsService.getPosts();
