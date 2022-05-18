@@ -8,6 +8,7 @@ import { LoggerMiddleware } from './common/middleware/logger.middleware';
 import { BoardsModule } from './modules/boards/boards.module';
 import { MapsModule } from './modules/maps/maps.module';
 import { PagesModule } from './modules/pages/pages.module';
+import { LoggerModule } from './logger/logger.module';
 import validationSchema from './configs/validation-schema';
 import databaseConfig from './configs/database.config';
 import tokenConfig from './configs/token.config';
@@ -42,6 +43,7 @@ import tokenConfig from './configs/token.config';
     BoardsModule,
     MapsModule,
     PagesModule,
+    LoggerModule,
   ],
   controllers: [AppController],
   providers: [AppService],
