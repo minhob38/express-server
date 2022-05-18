@@ -1,15 +1,18 @@
-import { Controller, Get, Param, UseGuards, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query, Logger } from '@nestjs/common';
 import { MapsService } from './maps.service';
-import { AuthTokenGuard } from '../../guards/auths.guard';
 import { GetSggsQueryDto, GetSggsParamDto } from './dto/get-sggs.dto';
 import { IRes } from '../../types/types';
 
 @Controller('api/maps')
 export class MapsController {
-  constructor(private readonly mapsService: MapsService) {}
+  constructor(
+    private readonly mapsService: MapsService,
+    private readonly logger: Logger,
+  ) {}
 
   @Get('sggs')
   async getSggs(): Promise<IRes> {
+    this.logger.log('...');
     return await this.mapsService.getSggs();
   }
 

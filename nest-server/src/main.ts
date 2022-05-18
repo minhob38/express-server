@@ -5,6 +5,7 @@ import path from 'path';
 import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './exceptions/http-exception.filter';
 import { ServerExceptionFiler } from './exceptions/server-exception.filter';
+import { MyLogger } from './logger/my-logger.service';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -27,6 +28,13 @@ async function bootstrap() {
   const httpAdapter = app.get(HttpAdapterHost);
   app.useGlobalFilters(new ServerExceptionFiler(httpAdapter));
   app.useGlobalFilters(new HttpExceptionFilter());
+
+  /* [logger]
+  - https://docs.nestjs.com/techniques/logger#logger
+  해당 custom logger를 app.useLogger에 넣으면, @nestjs/common의 Logger가 custom logger로 바뀝니다.
+  */
+  app.useLogger(app.get(MyLogger));
+
   await app.listen(3000);
 }
 bootstrap();
