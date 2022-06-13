@@ -9,7 +9,7 @@ import { BoardsModule } from './modules/boards/boards.module';
 import { MapsModule } from './modules/maps/maps.module';
 import { PagesModule } from './modules/pages/pages.module';
 import { LoggerModule } from './logger/logger.module';
-import { StudyModule } from './study/study.module';
+import { StudyModule } from './modules/study/study.module';
 import validationSchema from './configs/validation-schema';
 import databaseConfig from './configs/database.config';
 import tokenConfig from './configs/token.config';
