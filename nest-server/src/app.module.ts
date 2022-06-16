@@ -10,6 +10,7 @@ import { MapsModule } from './modules/maps/maps.module';
 import { PagesModule } from './modules/pages/pages.module';
 import { LoggerModule } from './logger/logger.module';
 import { StudyModule } from './modules/study/study.module';
+import { TestModule } from './modules/study/test.module';
 import validationSchema from './configs/validation-schema';
 import databaseConfig from './configs/database.config';
 import tokenConfig from './configs/token.config';
@@ -45,7 +46,9 @@ import tokenConfig from './configs/token.config';
     MapsModule,
     PagesModule,
     LoggerModule,
+    /* module for nest study */
     StudyModule,
+    TestModule,
   ],
   controllers: [AppController],
   providers: [AppService],
