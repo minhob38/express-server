@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ScheduleModule } from '@nestjs/schedule';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthsModule } from './modules/auths/auths.module';
@@ -51,6 +52,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
       isGlobal: true,
       ttl: 300,
     }),
+    ScheduleModule.forRoot(),
     AuthsModule,
     BoardsModule,
     MapsModule,
