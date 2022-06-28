@@ -7,6 +7,8 @@ import {
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ScheduleModule } from '@nestjs/schedule';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { BullModule } from '@nestjs/bull';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthsModule } from './modules/auths/auths.module';
@@ -20,7 +22,6 @@ import { TestModule } from './modules/study/test.module';
 import validationSchema from './configs/validation-schema';
 import databaseConfig from './configs/database.config';
 import tokenConfig from './configs/token.config';
-import { APP_INTERCEPTOR } from '@nestjs/core';
 import { SchedulersModule } from './modules/schedulers/schedulers.module';
 
 @Module({
@@ -49,11 +50,20 @@ import { SchedulersModule } from './modules/schedulers/schedulers.module';
         };
       },
     }),
+    /* https://docs.nestjs.com/techniques/caching */
     CacheModule.register({
       isGlobal: true,
       ttl: 300,
     }),
+    /* https://docs.nestjs.com/techniques/task-scheduling */
     ScheduleModule.forRoot(),
+    /* https://docs.nestjs.com/techniques/queues */
+    BullModule.forRoot({
+      redis: {
+        host: process.env.REDIS_PROXY_HOST,
+        port: 6379,
+      },
+    }),
     AuthsModule,
     BoardsModule,
     MapsModule,
