@@ -21,6 +21,7 @@ import validationSchema from './configs/validation-schema';
 import databaseConfig from './configs/database.config';
 import tokenConfig from './configs/token.config';
 import { APP_INTERCEPTOR } from '@nestjs/core';
+import { SchedulersModule } from './modules/schedulers/schedulers.module';
 
 @Module({
   imports: [
@@ -61,6 +62,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
     /* module for nest study */
     StudyModule,
     TestModule,
+    SchedulersModule,
   ],
   controllers: [AppController],
   providers: [
