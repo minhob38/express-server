@@ -1,4 +1,9 @@
-import { Module, MiddlewareConsumer, CacheModule } from '@nestjs/common';
+import {
+  Module,
+  MiddlewareConsumer,
+  CacheModule,
+  CacheInterceptor,
+} from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
@@ -14,6 +19,7 @@ import { TestModule } from './modules/study/test.module';
 import validationSchema from './configs/validation-schema';
 import databaseConfig from './configs/database.config';
 import tokenConfig from './configs/token.config';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -41,7 +47,10 @@ import tokenConfig from './configs/token.config';
         };
       },
     }),
-    CacheModule.register(),
+    CacheModule.register({
+      isGlobal: true,
+      ttl: 300,
+    }),
     AuthsModule,
     BoardsModule,
     MapsModule,
@@ -52,10 +61,17 @@ import tokenConfig from './configs/token.config';
     TestModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    /* https://docs.nestjs.com/techniques/caching#auto-caching-responses */
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: CacheInterceptor,
+    },
+  ],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer): any {
-    consumer.apply(LoggerMiddleware).forRoutes('/auths');
+    consumer.apply(LoggerMiddleware).forRoutes('/api');
   }
 }

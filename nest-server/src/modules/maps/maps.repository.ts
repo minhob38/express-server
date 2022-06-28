@@ -19,7 +19,6 @@ export class MapsRepository {
   }
 
   async findSgg(sggName: string) {
-    console.log(sggName);
     const sggs = await this.seoulSggsRepository.find({
       select: ['sggNm', 'gid'],
       where: { sggNm: Raw((sggNm) => `${sggNm} like '${sggName}%'`) },
