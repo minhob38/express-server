@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Processor, Process } from '@nestjs/bull';
+import { Processor, Process, OnQueueCompleted } from '@nestjs/bull';
 import { BoardsRepository } from './boards.repository';
 import { IRes } from '../../types/types';
 import { Job } from 'bull';
@@ -21,15 +21,16 @@ export class BoardsService {
     };
   }
 
-  @Process('get-posts')
-  async doQueue(job: Job<unknown>) {
-    console.log('do queue');
-    // job.progress();
-    return 'do queue return';
+  @OnQueueCompleted()
+  handleQueueCompleted(job: Job<unknown>) {
+    console.log('=== queue completed ===');
+    console.log(job.returnvalue);
+    return 'queue completed';
   }
 
-  async getPosts(): Promise<IRes> {
-    console.log('~~~');
+  @Process('get-posts')
+  async getPosts(job: Job<unknown>): Promise<IRes> {
+    console.log('=== job processed ===');
     const posts = await this.boardsRepository.findPosts();
     return {
       status: 200,

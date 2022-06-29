@@ -37,14 +37,12 @@ export class BoardsController {
   }
 
   @Get('posts')
-  async getPosts(): Promise<IRes> {
+  async getPosts(): Promise<any> {
     const job = await this.boardsQueue.add('get-posts', {
       item: 'queue : (',
     });
-    const isCompleted = await job.isCompleted();
-    console.log(isCompleted);
-    console.log('job', job.returnvalue);
-    return await this.boardsService.getPosts();
+    // return await this.boardsService.getPosts();
+    return 'hello';
   }
 
   @Get('posts/:postId')
