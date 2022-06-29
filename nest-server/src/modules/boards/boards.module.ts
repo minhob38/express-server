@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { BullModule } from '@nestjs/bull';
 import { BoardsController } from './boards.controller';
 import { BoardsService } from './boards.service';
 import { Posts } from '../../entities/posts.entity';
@@ -14,7 +15,13 @@ https://github.com/nestjs/nest/issues/3856
 @Module({
   controllers: [BoardsController],
   providers: [BoardsService, BoardsRepository],
-  imports: [TypeOrmModule.forFeature([Posts]), AuthsModule],
+  imports: [
+    TypeOrmModule.forFeature([Posts]),
+    BullModule.registerQueue({
+      name: 'boards',
+    }),
+    AuthsModule,
+  ],
 })
 export class BoardsModule {}
 

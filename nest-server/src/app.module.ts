@@ -78,10 +78,10 @@ import { SchedulersModule } from './modules/schedulers/schedulers.module';
   providers: [
     AppService,
     /* https://docs.nestjs.com/techniques/caching#auto-caching-responses */
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: CacheInterceptor,
-    },
+    // {
+    //   provide: APP_INTERCEPTOR,
+    //   useClass: CacheInterceptor,
+    // },
   ],
 })
 export class AppModule {

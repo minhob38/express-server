@@ -1,7 +1,10 @@
 import { Injectable } from '@nestjs/common';
+import { Processor, Process } from '@nestjs/bull';
 import { BoardsRepository } from './boards.repository';
 import { IRes } from '../../types/types';
+import { Job } from 'bull';
 
+@Processor('boards')
 @Injectable()
 export class BoardsService {
   constructor(private readonly boardsRepository: BoardsRepository) {}
@@ -18,7 +21,15 @@ export class BoardsService {
     };
   }
 
+  @Process('get-posts')
+  async doQueue(job: Job<unknown>) {
+    console.log('do queue');
+    // job.progress();
+    return 'do queue return';
+  }
+
   async getPosts(): Promise<IRes> {
+    console.log('~~~');
     const posts = await this.boardsRepository.findPosts();
     return {
       status: 200,

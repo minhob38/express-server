@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { MapsRepository } from './maps.repository';
 import { IRes } from '../../types/types';
+
 @Injectable()
 export class MapsService {
   constructor(private readonly mapsRepository: MapsRepository) {}
