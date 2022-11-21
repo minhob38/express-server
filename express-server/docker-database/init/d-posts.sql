@@ -1,7 +1,7 @@
 \connect "docker-database";
 
 CREATE TABLE public.posts (
-  id serial primary key,
+  id bigint not null generated always as identity,
   author varchar NOT NULL,
   title varchar NOT NULL,
   content varchar NOT NULL,

@@ -1,7 +1,7 @@
 \connect "docker-database";
 
 CREATE TABLE public.users (
-  id serial primary key,
+  id bigint not null generated always as identity,
   email varchar NOT NULL,
 	"password" varchar NOT NULL,
   created_at timestamp NOT NULL DEFAULT now(),
