@@ -9,8 +9,8 @@ CREATE TABLE public.users (
 );
 
 INSERT INTO public.users
-(id, email, "password", created_at, updated_at)
+(email, "password", created_at, updated_at)
 VALUES
-(1, 'abcde@gmail.com', '$2b$10$0dqgeGWLUHI74Ezua6vNL.uZCEef9qDFnO7cjZpoEJ2vd97tFxU56', '2021-12-21 12:42:43.633', NULL),
-(2, 'qwert@gmail.com', '$2b$10$0dqgeGWLUHI74Ezua6vNL.uZCEef9qDFnO7cjZpoEJ2vd97tFxU56', '2021-12-21 13:42:43.633', NULL),
-(3, 'asdfg@gmail.com', '$2b$10$0dqgeGWLUHI74Ezua6vNL.uZCEef9qDFnO7cjZpoEJ2vd97tFxU56', '2021-12-21 14:42:43.633', NULL);
+('abcde@gmail.com', '$2b$10$0dqgeGWLUHI74Ezua6vNL.uZCEef9qDFnO7cjZpoEJ2vd97tFxU56', '2021-12-21 12:42:43.633', NULL),
+('qwert@gmail.com', '$2b$10$0dqgeGWLUHI74Ezua6vNL.uZCEef9qDFnO7cjZpoEJ2vd97tFxU56', '2021-12-21 13:42:43.633', NULL),
+('asdfg@gmail.com', '$2b$10$0dqgeGWLUHI74Ezua6vNL.uZCEef9qDFnO7cjZpoEJ2vd97tFxU56', '2021-12-21 14:42:43.633', NULL);

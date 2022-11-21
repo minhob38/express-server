@@ -10,12 +10,12 @@ CREATE TABLE public.posts (
 );
 
 INSERT INTO public.posts
-(id, author, title, "content", created_at, updated_at)
+(author, title, "content", created_at, updated_at)
 VALUES
-(1, 'abcde@gmail.com', 'express server', 'express server ...', '2021-12-21 12:46:31.150', NULL),
-(2, 'abcde@gmail.com', 'django server', 'django server ...', '2021-12-22 12:46:31.150', NULL),
-(3, 'abcde@gmail.com', 'koa server', 'koa server ...', '2021-12-23 12:46:31.150', NULL),
-(4, 'qwert@gmail.com', 'flask server', 'flask server ...', '2021-12-24 12:46:31.150', NULL),
-(5, 'qwert@gmail.com', 'spring server', 'spring server ...', '2021-12-25 12:46:31.150', NULL),
-(6, 'zxcvb@gmail.com', 'php server', 'php server ...', '2021-12-26 12:46:31.150', NULL),
-(7, 'zxcvb@gmail.com', 'go server', 'go server ...', '2021-12-27 12:46:31.150', NULL);
+('abcde@gmail.com', 'express server', 'express server ...', '2021-12-21 12:46:31.150', NULL),
+('abcde@gmail.com', 'django server', 'django server ...', '2021-12-22 12:46:31.150', NULL),
+('abcde@gmail.com', 'koa server', 'koa server ...', '2021-12-23 12:46:31.150', NULL),
+('qwert@gmail.com', 'flask server', 'flask server ...', '2021-12-24 12:46:31.150', NULL),
+('qwert@gmail.com', 'spring server', 'spring server ...', '2021-12-25 12:46:31.150', NULL),
+('zxcvb@gmail.com', 'php server', 'php server ...', '2021-12-26 12:46:31.150', NULL),
+('zxcvb@gmail.com', 'go server', 'go server ...', '2021-12-27 12:46:31.150', NULL);
